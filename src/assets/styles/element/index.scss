@@ -1,0 +1,61 @@
+@use "sass:map";
+
+@forward "element-plus/theme-chalk/src/common/var.scss" with (
+  $fill-color: (
+    "blank": none,
+    "light": none,
+  ),
+  $bg-color: (
+    "": #d3ddea,
+    'overlay': #f0f4f9,
+  ),
+  $border-color: (
+    "lighter": #d4d4d4,
+  ),
+  $text-color: (
+    "regular": #000,
+    "secondary": #000,
+  ),
+  $table-padding: (
+    "default": 6px 0,
+  )
+);
+
+@use "element-plus/theme-chalk/src/index.scss" as *;
+
+.el-popover {
+  --el-popover-padding: 0px;
+}
+
+.el-table.nowrap .cell {
+  white-space: nowrap;
+}
+
+.el-table tr {
+  background: none;
+}
+
+.el-table__row.current {
+  background: rgba(194, 199, 208, 0.3);
+  font-weight: 600;
+}
+
+.el-table__row.red,
+.el-table__row.red .el-input__inner {
+  color: #d64949 !important;
+}
+
+.el-table__row.green,
+.el-table__row.green .el-input__inner {
+  color: #0ca62e !important;
+}
+
+.el-table__row .el-input__wrapper,
+.el-table__row .el-input__wrapper.is-focus,
+.el-table__row .el-select:hover:not(.el-select--disabled) .el-input__wrapper {
+  box-shadow: none;
+}
+
+.el-table .el-input-number {
+  width: 100%;
+}
