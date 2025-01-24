@@ -192,7 +192,7 @@ function resize() {
  * 键盘keyup事件,监听Escape键resize
  * */
 function keyup(e: any) {
-  if (!currentDom.value.parentNode) return
+  if (!currentDom.value?.parentNode) return
   if (e.target.nodeName === 'INPUT') return
   if (e.key === 'Escape' || e.key === ' ') resize()
 }
@@ -204,6 +204,7 @@ function transfromByPositionAndScale(position: Point, scale: number) {
   transform(
     posCenter.x - props.width / 2,
     posCenter.y - props.height / 2,
+    
     scale
   )
 }

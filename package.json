@@ -2,7 +2,7 @@
   "name": "uran-ui",
   "private": false,
   "author": "Uran Team",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "UI module for Uran",
   "type": "module",
   "module": "./lib/uran-ui.js",
