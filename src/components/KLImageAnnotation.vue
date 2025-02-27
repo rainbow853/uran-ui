@@ -166,6 +166,7 @@ defineExpose({
   reset,
   selectByIndex,
   selectByRect,
+  transform
 })
 </script>
 

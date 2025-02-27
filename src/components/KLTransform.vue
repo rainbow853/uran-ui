@@ -245,6 +245,7 @@ defineExpose({
   transfromByPositionAndScale,
   transform,
   zoomByPosition,
+  getPosition
 });
 </script>
 
