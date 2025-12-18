@@ -1,0 +1,40 @@
+//单行省略号
+.p-te {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+// 2/3/4行省略号
+.p-te2,
+.p-te3,
+.p-te3 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* autoprefixer: ignore next */
+    -webkit-box-orient: vertical;
+}
+
+//2行省略号
+.p-te2 {
+    -webkit-line-clamp: 2;
+}
+
+//3行省略号
+.p-te3 {
+    -webkit-line-clamp: 3;
+    /* autoprefixer: ignore next */
+}
+
+//4行省略号
+.p-te4 {
+    -webkit-line-clamp: 4;
+}
+
+.ellipsis,
+.flex-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

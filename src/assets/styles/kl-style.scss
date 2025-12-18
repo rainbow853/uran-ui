@@ -1,0 +1,105 @@
+:root {
+  --kl-main-color: #132f66;
+  --kl-bg-color: #f0f4f9;
+  --kl-font-color: #333333;
+  --kl-click-color: #0c41ab;
+  --kl-primary-color: #477ae0;
+  --kl-success-color: #0ca62e;
+  --kl-info-color: #999999;
+  --kl-warning-color: #e1bf09;
+  --kl-error-color: #d64949;
+  --kl-border-color: #d4d4d4;
+  --kl-ok-color: #0ca62e;
+  --kl-ng-color: #cb0101;
+  --kl-fx-color: #fc6d27;
+  --kl-shadow-block: inset -3px -3px 7px #ffffff, inset 3px 3px 2px rgba(156, 156, 156, 0.5);
+  --kl-shadow-inline: inset -1px -1px 0px #47484a, inset -2px -2px 0px #a8a8a8, inset 1px 1px 0px #ffffff;
+  --kl-border-radius: 2px;
+  --kl-padding-large: 30px;
+  --kl-padding-small: 20px;
+  --kl-padding-mini: 10px;
+  --kl-disabled-btn-timer: 0.5s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #e5e5e5;
+  font-size: 14px;
+  color: var(--kl-font-color);
+  overflow: hidden;
+}
+
+/** 图标 **/
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+.hl-color {
+  color: var(--kl-click-color);
+}
+
+.error-color {
+  color: var(--kl-error-color);
+}
+
+.ok-color {
+  color: var(--kl-success-color);
+}
+
+.ng-color {
+  color: var(--kl-ng-color);
+}
+
+.fx-color {
+  color: var(--kl-fx-color);
+}
+
+.border {
+  border: var(--el-border);
+}
+
+
+.bg-black {
+  background: #000;
+}
+
+
+/** 防止按钮重复点击 https://juejin.cn/post/7165828047520661534?searchId=20231207143441CFC059E251EAB3826714 */
+.kl-throttle-btn {
+  animation: kl-throttle var(--kl-disabled-btn-timer, 0.5s) step-end forwards;
+}
+
+.kl-throttle-btn:active,
+.kl-throttle-btn.disabled {
+  animation: none;
+}
+
+@keyframes kl-throttle {
+  from {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  to {
+    pointer-events: all;
+    opacity: 1;
+  }
+}

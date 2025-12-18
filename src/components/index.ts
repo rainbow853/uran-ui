@@ -1,9 +1,14 @@
 import { createApp } from 'vue';
 import type { App } from 'vue'
 import '../assets/styles/element/index.scss'
+import '@/assets/styles/common.ellipsis.scss'
+import '@/assets/styles/common.flex.scss'
+import '@/assets/styles/common.margin-padding.scss'
+import '@/assets/styles/common.size.scss'
 import '@/assets/styles/common.scss'
-import '@/assets/styles/style.scss'
-import '@/assets/styles/iconfont/iconfont.js'
+import '@/assets/styles/kl-style.scss'
+// 此包不打包，各项目内部加载
+// import '@/assets/styles/iconfont/iconfont.js'
 import TransformDom from 'vue3-transform-dom';
 import ElementPlus, { ElMessage, messageTypes } from "element-plus";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'

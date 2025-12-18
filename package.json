@@ -1,8 +1,8 @@
 {
-  "name": "uran-ui",
+  "name": "@koala123/ui",
   "private": false,
   "author": "Uran Team",
-  "version": "1.0.6",
+  "version": "1.0.0",
   "description": "UI module for Uran",
   "type": "module",
   "module": "./lib/uran-ui.js",
