@@ -12,11 +12,16 @@ hero:
       link: /KLIcon
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - icon: 
+      src: /img/Vue.svg
+    title: 基本组件
+    details: uran-ui提供部分常用component
+    link: ./KLIcon
+  - icon: 
+      src: /img/Css.svg
+    title: 基础CSS
+    details: uran-ui提供部分常用css
+    link: ./CSS
+    
 ---
 

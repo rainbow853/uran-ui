@@ -13,6 +13,12 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: '全局CSS',
+        items: [
+          { text: '全局CSS', link: '/CSS' },
+        ]
+      },
+      {
         text: '基础组件',
         items: [
           { text: 'KLIcon', link: '/KLIcon' },
