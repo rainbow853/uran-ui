@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-const emit = defineEmits(["update:modelValue", 'blur', 'enter', 'submit']);
+const emit = defineEmits(["update:modelValue", 'submit']);
 
 const props = defineProps<{
   modelValue: string;
@@ -23,14 +23,11 @@ function handleInput(e: any) {
 }
 
 function blur() {
-  emit('blur');
-  emit('submit');
+  emit('submit', props.modelValue);
 }
 
-function enter() {
-  // e.target.blur();
-  emit('enter');
-  emit('submit');
+function enter(e: any) {
+  e.target.blur();
 }
 </script>
 <template>

@@ -23,6 +23,7 @@ export default defineConfig({
         items: [
           { text: 'KLIcon', link: '/KLIcon' },
           { text: 'KLButton', link: '/KLButton' },
+          { text: 'KLInput', link: '/KLInput' },
           { text: 'KLCameraImage', link: '/KLCameraImage' },
         ]
       }
