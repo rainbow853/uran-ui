@@ -4,11 +4,13 @@ import type { Component } from 'vue'
 import type { TabsPaneContext } from 'element-plus'
 import Button from './views/Button.vue'
 import Icon from './views/Icon.vue'
+import Input from './views/Input.vue'
 import PopoverList from './views/PopoverList.vue'
 import CameraImage from './views/CameraImage.vue'
 const Com: { [key: string]: Component } = {
   Icon,
   Button,
+  Input,
   PopoverList,
   CameraImage,
 }

@@ -5,6 +5,7 @@ function remove() {
   removeRecord.value = 'Remove event triggered : ' + new Date().toLocaleString();
 }
 </script>
+// #region snippet
 <template>
   <div class="buttons flex-vertical flex-wrap mb20">
     <KLButton content="content" />
@@ -24,6 +25,7 @@ function remove() {
   </div>
   <div>{{ removeRecord }}</div>
 </template>
+// #endregion snippet
 <style scoped>
 .buttons :deep(.kl-btn) {
   margin: 20px 20px 0 0;

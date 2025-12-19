@@ -6,6 +6,167 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "36793281",
+      "name": "PLC管理",
+      "font_class": "plc-1",
+      "unicode": "e850",
+      "unicode_decimal": 59472
+    },
+    {
+      "icon_id": "44899646",
+      "name": "ic_plc",
+      "font_class": "plc",
+      "unicode": "e910",
+      "unicode_decimal": 59664
+    },
+    {
+      "icon_id": "45730724",
+      "name": "CameraTrigger-copy-01",
+      "font_class": "camera-trigger",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "25423483",
+      "name": "Lightning, trigger",
+      "font_class": "light-trigger",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "12823234",
+      "name": "m-按钮切换",
+      "font_class": "pattern",
+      "unicode": "e7be",
+      "unicode_decimal": 59326
+    },
+    {
+      "icon_id": "36284869",
+      "name": "缺陷管理 2",
+      "font_class": "defect",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "22608807",
+      "name": "icon-曝光时间",
+      "font_class": "exp-time",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "35438674",
+      "name": "元素-触发",
+      "font_class": "trigger",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "37513354",
+      "name": "视频帮助",
+      "font_class": "help-video",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "702675",
+      "name": "help",
+      "font_class": "help",
+      "unicode": "e8c9",
+      "unicode_decimal": 59593
+    },
+    {
+      "icon_id": "6151239",
+      "name": "folder-open",
+      "font_class": "folder-open",
+      "unicode": "e804",
+      "unicode_decimal": 59396
+    },
+    {
+      "icon_id": "15838489",
+      "name": "import",
+      "font_class": "import1",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "15838519",
+      "name": "refresh",
+      "font_class": "refresh",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "18267974",
+      "name": "文档",
+      "font_class": "doc",
+      "unicode": "e99c",
+      "unicode_decimal": 59804
+    },
+    {
+      "icon_id": "33987016",
+      "name": "上传图片",
+      "font_class": "upload-img",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "33987170",
+      "name": "下拉",
+      "font_class": "xiala",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "34452988",
+      "name": "close",
+      "font_class": "close1",
+      "unicode": "e839",
+      "unicode_decimal": 59449
+    },
+    {
+      "icon_id": "15838434",
+      "name": "back",
+      "font_class": "back",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "15838444",
+      "name": "close",
+      "font_class": "close",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "15838468",
+      "name": "export",
+      "font_class": "export",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "1075",
+      "name": "照相机",
+      "font_class": "camera",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "37258456",
+      "name": "质检员",
+      "font_class": "zhijianyuan",
+      "unicode": "e72a",
+      "unicode_decimal": 59178
+    },
+    {
+      "icon_id": "12661421",
+      "name": "显示",
+      "font_class": "show",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
       "icon_id": "680377",
       "name": "最小化",
       "font_class": "zuixiaohua",
@@ -202,13 +363,6 @@
       "unicode_decimal": 58909
     },
     {
-      "icon_id": "37917043",
-      "name": "ended",
-      "font_class": "ended",
-      "unicode": "e61e",
-      "unicode_decimal": 58910
-    },
-    {
       "icon_id": "37917044",
       "name": "info",
       "font_class": "info",
@@ -293,13 +447,6 @@
       "unicode_decimal": 59506
     },
     {
-      "icon_id": "658053",
-      "name": "相机",
-      "font_class": "camera",
-      "unicode": "e672",
-      "unicode_decimal": 58994
-    },
-    {
       "icon_id": "6231431",
       "name": "向下箭头",
       "font_class": "xiangxiajiantou",
@@ -309,7 +456,7 @@
     {
       "icon_id": "18430675",
       "name": "资料库点击",
-      "font_class": "ziliaokudianji",
+      "font_class": "folder",
       "unicode": "e606",
       "unicode_decimal": 58886
     },

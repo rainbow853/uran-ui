@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import type { Camera, Subscribe } from 'kl-camera-frontend';
+import type { coor, roi } from '../../type';
 import { useLocalStorageItem } from "../../composables/localStorageItem";
 import Header from './Header.vue';
 import Content from './Content.vue';
@@ -14,11 +15,6 @@ export interface grid {
   color: string;
   /** 网格线的间隔 */
   step: number;
-}
-
-export interface coor {
-  x: number;
-  y: number;
 }
 
 export interface rgb {
@@ -43,7 +39,9 @@ const props = defineProps<{
   camera?: Camera;
   stopGrab?: boolean;
   showCrosshair?: boolean;
-  showItemInFolder?: (path: string) => void;
+  grabImageSuccessCB: (image: any) => void;
+  helpVideo?: string;
+  rectCallback?: (roi: roi) => boolean;
 }>()
 const width = computed(() => {
   return props.camera?.width || 5120;
@@ -102,6 +100,7 @@ defineExpose({
   getPosition(e: MouseEvent, limitInWindow?: boolean) {
     return content.value.klTransform.getPosition(e, limitInWindow);
   },
+  restoreImage,
 })
 </script>
 
@@ -109,10 +108,10 @@ defineExpose({
   <div class="camera-main flex-col">
     <Header :camera="camera" :subscribe="subscribe" :imageScale="imageScale" v-model:grid="grid"
       v-model:crosshair="crosshair" :crosshairCenter="crosshairCenter" :zoomByCenter="zoomByCenter"
-      :restoreImage="restoreImage" :showItemInFolder="showItemInFolder" />
+      :restoreImage="restoreImage" :helpVideo="helpVideo" :grabImageSuccessCB="grabImageSuccessCB" />
     <Content ref="content" :camera="camera" v-model:subscribe="subscribe" :width="width" :height="height"
       v-model:imageScale="imageScale" :grid="grid" :crosshair="crosshair" v-model:count="count" v-model:coor="coor"
-      v-model:rgb="rgb" :stopGrab="stopGrab" :showCrosshair="showCrosshair">
+      v-model:rgb="rgb" :stopGrab="stopGrab" :showCrosshair="showCrosshair" :rectCallback="rectCallback">
       <template v-slot="{ scale, width, height }">
         <slot :scale="scale" :width="width" :height="height"></slot>
       </template>
@@ -120,11 +119,7 @@ defineExpose({
         <slot name="camera-outer"></slot>
       </template>
     </Content>
-    <Footer :camera="camera" :width="width" :height="height" :count="count" :coor="coor" :rgb="rgb">
-      <template #default>
-        <slot name="footer"></slot>
-      </template>
-    </Footer>
+    <Footer :camera="camera" :width="width" :height="height" :count="count" :coor="coor" :rgb="rgb" />
   </div>
 </template>
 

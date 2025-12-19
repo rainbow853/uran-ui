@@ -65,9 +65,8 @@ const { width: inw, height: inh } = camera.value;
 const inData = new ArrayBuffer(inw * inh * 4);
 </script>
 <template>
-  <div class="shadow-block p20" style="height: 400px">
+  <div class="shadow-block p20" style="height: 600px">
     <KLCameraImage :camera="camera">
-      <template #footer>-</template>
     </KLCameraImage>
   </div>
 </template>

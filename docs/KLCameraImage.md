@@ -13,20 +13,27 @@ import CameraImage from '../src/views/CameraImage.vue'
 <CameraImage />
 
 ## Attributes
+> ```typescript
+> type roi = { x: number, y: number, width: number, height: number }
+> ```
+> image为Camera对象grabImage返回的数据
+
 |属性|说明|类型|默认值|
 |---|---|---|:---:|
-|name |相机实例 |[Camera](https://github.com/fengqing1101/kl-camera-frontend) |-|
+|camera |相机实例 |[Camera](https://github.com/fengqing1101/kl-camera-frontend) |-|
 |showCrosshair |鼠标位置显示十字线 |`boolean` |false|
-|showItemInFolder |采集图像后打开图像所在目录的回调函 |`(imgPath: string) => void` |false|
+|grabImageSuccessCB |采集图像后回调函数 |`(image: image) => void` |-|
+|helpVideo |帮助视频地址 |string |-|
+|rectCallback |鼠标右键绘制矩阵框回调函数 |`(roi: roi) => boolean` |-|
 
 ## slot
-|插槽名|说明|
-|---|---|
-|default |图像区域内部 |
-|camera-outer |图像所在画布 |
-|footer |右下角 |
+|插槽名|说明|数据|
+|---|---|---|
+|default |图像区域内部并返回画布缩放比例与宽高 |`{scale: number, width: number, height: number}`|
+|camera-outer |图像所在画布 |-|
 
 ## 方法
 |方法名|参数|说明|
 |---|:---:|---|
 |getPosition |`(e: MouseEvent, limitInWindow?: boolean) => number[]` |获取鼠标在图像中的坐标|
+|restoreImage |`() => void` |重置图像区域|

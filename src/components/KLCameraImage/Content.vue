@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import type { Camera, Subscribe } from 'kl-camera-frontend';
-import type { grid, coor, rgb, crosshair } from './index.vue';
+import type { coor, roi } from '../../type';
+import { useDrawRect } from '../../composables/drawRect';
+import type { grid, rgb, crosshair } from './index.vue';
 const emit = defineEmits(['update:subscribe', 'update:imageScale', 'update:count', 'update:coor'])
 
 const props = defineProps<{
@@ -17,7 +19,7 @@ const props = defineProps<{
   rgb: rgb;
   stopGrab?: boolean;
   showCrosshair?: boolean;
-  rectCallback?: Function;
+  rectCallback?: (roi: roi) => boolean;
 }>()
 
 
@@ -34,6 +36,15 @@ function mousemove(e: MouseEvent) {
   props.rgb.g = currentImageData.data[startIndex + 1];
   props.rgb.b = currentImageData.data[startIndex + 2];
 }
+// 右键框选
+const { mousedown, rectPath } = useDrawRect({
+  getPositionFn(e: MouseEvent) {
+    return klTransform.value.getPosition(e, true);
+  },
+  rectCallback: props.rectCallback,
+  button: 2,
+  enable: true,
+})
 
 
 const listener = (imageData: ImageData) => {
@@ -71,10 +82,6 @@ watch(() => props.camera, (currentCamera) => {
 
 function transform(matrix: number[]) {
   emit('update:imageScale', parseFloat((matrix[2] * 100).toFixed(3)));
-  if (subscribeParam[0] !== matrix[0] || subscribeParam[1] !== matrix[1]) {
-    canvasEl.value.width = canvasEl.value.parentNode.clientWidth;
-    canvasEl.value.height = canvasEl.value.parentNode.clientHeight;
-  }
   subscribeParam = matrix;
   props.subscribe?.updateParam(subscribeParam);
 }
@@ -83,7 +90,7 @@ function zoomByCenter(zoomOut: boolean) {
   klTransform.value?.zoomByCenter(zoomOut);
 }
 function restoreImage() {
-  klTransform.value?.transfer2window.resize();
+  klTransform.value?.forceFresh();
 }
 defineExpose({
   klTransform,
@@ -99,12 +106,18 @@ defineExpose({
       class="camera-content" :class="{ 'grid-line': grid.show }"
       :style="{ '--grid-color': grid.color, '--grid-step': grid.step + 'px' }">
       <template v-slot="{ scale }">
-        <div class="wh-full" @mousemove="mousemove">
+        <div class="wh-full" @mousemove="mousemove" @mousedown="mousedown" @contextmenu.stop.prevent
+          :style="{ '--stroke-size': Math.ceil(1 / scale) }">
           <KLCrosshair v-if="crosshair.show && crosshair.inner" :coor="crosshair.coor" :color="crosshair.color"
             :width="width" :height="height" :scale="scale" />
           <KLCrosshair v-if="showCrosshair" :coor="coor" :color="crosshair.color" :width="width" :height="height"
             :scale="scale" />
           <slot :scale="scale" :width="width" :height="height"></slot>
+          <svg :width="width" :height="height" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#ff0000" stroke-opacity="1" :stroke-width="4" fill="none">
+              <path :d="rectPath" />
+            </g>
+          </svg>
         </div>
       </template>
     </transform-dom>

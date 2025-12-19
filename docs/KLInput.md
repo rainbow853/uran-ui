@@ -2,33 +2,12 @@
 import Input from '../src/views/Input.vue'
 </script>
 
-# KLIcon
+# KLInput
 考拉输入框组件
 
 ## 效果
 <Input />
-```vue
-<script setup lang="ts">
-import { ref } from 'vue';
-const textValue = ref('text');
-const submitRecord = ref('Submit event');
-function submit(value: string) {
-  submitRecord.value = '输入框当前值 : ' + value;
-}
-</script>
-<template>
-  <div class="mb10">
-    <KLInput v-model="textValue" @submit="submit" />
-    <div>{{ submitRecord }}</div>
-  </div>
-  <div class="w-full">
-    <KLInput class="mr20" v-model="textValue" :width="80" height="40px" />
-    <KLInput class="mr20" v-model="textValue" width="120px" disabled />
-    <KLInput class="mr20" v-model="textValue" width="10%" password shadow />
-  </div>
-</template>
-
-```
+<<< ../src/views/Input.vue
 
 ## Attributes
 |属性|说明|类型|默认值|

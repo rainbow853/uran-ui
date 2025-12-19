@@ -1,9 +1,9 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3938294 */
-  src: url('iconfont.woff2?t=1733302395327') format('woff2'),
-       url('iconfont.woff?t=1733302395327') format('woff'),
-       url('iconfont.ttf?t=1733302395327') format('truetype'),
-       url('iconfont.svg?t=1733302395327#iconfont') format('svg');
+  src: url('iconfont.woff2?t=1766129196727') format('woff2'),
+       url('iconfont.woff?t=1766129196727') format('woff'),
+       url('iconfont.ttf?t=1766129196727') format('truetype'),
+       url('iconfont.svg?t=1766129196727#iconfont') format('svg');
 }
 
 .iconfont {
@@ -12,6 +12,98 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.kl-plc-1:before {
+  content: "\e850";
+}
+
+.kl-plc:before {
+  content: "\e910";
+}
+
+.kl-camera-trigger:before {
+  content: "\e63c";
+}
+
+.kl-light-trigger:before {
+  content: "\e608";
+}
+
+.kl-pattern:before {
+  content: "\e7be";
+}
+
+.kl-defect:before {
+  content: "\e60f";
+}
+
+.kl-exp-time:before {
+  content: "\e62c";
+}
+
+.kl-trigger:before {
+  content: "\e607";
+}
+
+.kl-help-video:before {
+  content: "\e6dd";
+}
+
+.kl-help:before {
+  content: "\e8c9";
+}
+
+.kl-folder-open:before {
+  content: "\e804";
+}
+
+.kl-import1:before {
+  content: "\e675";
+}
+
+.kl-refresh:before {
+  content: "\e67b";
+}
+
+.kl-doc:before {
+  content: "\e99c";
+}
+
+.kl-upload-img:before {
+  content: "\e62e";
+}
+
+.kl-xiala:before {
+  content: "\e62f";
+}
+
+.kl-close1:before {
+  content: "\e839";
+}
+
+.kl-back:before {
+  content: "\e666";
+}
+
+.kl-close:before {
+  content: "\e668";
+}
+
+.kl-export:before {
+  content: "\e66e";
+}
+
+.kl-camera:before {
+  content: "\e605";
+}
+
+.kl-zhijianyuan:before {
+  content: "\e72a";
+}
+
+.kl-show:before {
+  content: "\e6c8";
 }
 
 .kl-zuixiaohua:before {
@@ -126,10 +218,6 @@
   content: "\e61d";
 }
 
-.kl-ended:before {
-  content: "\e61e";
-}
-
 .kl-info:before {
   content: "\e61f";
 }
@@ -178,15 +266,11 @@
   content: "\e872";
 }
 
-.kl-camera:before {
-  content: "\e672";
-}
-
 .kl-xiangxiajiantou:before {
   content: "\e60b";
 }
 
-.kl-ziliaokudianji:before {
+.kl-folder:before {
   content: "\e606";
 }
 
