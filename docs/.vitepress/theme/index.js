@@ -1,14 +1,18 @@
 // .vitepress/theme/index.js
 import DefaultTheme from 'vitepress/theme'
-import uranUI from '../../../lib/uran-ui'
-import '../../../lib/style.css'
+import './custom.css'
+typeof window !== 'undefined' && import('../../../src/assets/styles/iconfont/iconfont.js')
+
+const loadUranUI = new Promise((resolve) => {
+  typeof window === 'undefined' ?
+    resolve() :
+    import('../../../src/components').then(uranUI => resolve(uranUI.default))
+})
 
 /** @type {import('vitepress').Theme} */
 export default {
   extends: DefaultTheme,
-  enhanceApp({ app }) {
-    // uran-ui样式document.body.style.overflow=hidden；滚动条失效
-    document.body.style.overflow = 'auto';
-    app.use(uranUI)
+  async enhanceApp({ app }) {
+    return loadUranUI.then(uranUI => app.use(uranUI))
   }
 }

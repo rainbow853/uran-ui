@@ -1,6 +1,7 @@
 # @koala123/ui 组件说明
 
 > 将固定成形的公共组件提取到 @koala123/ui 组件库中，并发布到 npm,解决代码冗余问题
+> 组件预览：[uran-ui](https://rainbow853.github.io/uran-ui/KLIcon)
 
 # 1.下载公共组件
 
@@ -25,6 +26,7 @@ KLButton 按钮
 KLDialog 弹窗
 KLNavBar 导航按钮
 KLPagination 
+...
 
 # 4.组件文档
 >[https://kaolayouran.feishu.cn/docx/QZzxdBRJgo4xzVxCUmwcxuyPnnc](https://kaolayouran.feishu.cn/docx/QZzxdBRJgo4xzVxCUmwcxuyPnnc)

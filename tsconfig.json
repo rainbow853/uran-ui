@@ -7,11 +7,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": [ "src/*" ],
-      "~/*": ["src/views/*"]
-    },
-
     /* Bundler mode */
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,

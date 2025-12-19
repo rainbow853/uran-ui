@@ -1,7 +1,3 @@
----
-hello: world
----
-
 <script setup>
 import Icon from '../src/views/Icon.vue'
 </script>
@@ -11,6 +7,19 @@ import Icon from '../src/views/Icon.vue'
 
 ## 效果
 <Icon />
+```vue
+<template>
+  <KLIcon name="wait" color="#999999" size="20px" />
+  <KLIcon name="ready" color="#00b23d" />
+  <KLIcon name="ongoing" color="#e78d08" />
+  <KLIcon name="unrecognized" color="#f61c1c" size="36px" />
+  <KLIcon name="ended" color="#00b23d" />
+  <KLIcon name="error" color="#f61c1c" />
+  <KLIcon name="copy" shadow color="#0e5af1" />
+  <KLIcon name="edit" shadow disabled color="#0e5af1" />
+  <KLIcon name="delete" shadow color="#f61c1c" />
+</template>
+```
 
 ## Attributes
 |属性|说明|类型|默认值|

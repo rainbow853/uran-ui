@@ -1,29 +1,29 @@
 import { createApp } from 'vue';
 import type { App } from 'vue'
 import '../assets/styles/element/index.scss'
-import '@/assets/styles/common.ellipsis.scss'
-import '@/assets/styles/common.flex.scss'
-import '@/assets/styles/common.margin-padding.scss'
-import '@/assets/styles/common.size.scss'
-import '@/assets/styles/common.scss'
-import '@/assets/styles/kl-style.scss'
+import '../assets/styles/common.ellipsis.scss'
+import '../assets/styles/common.flex.scss'
+import '../assets/styles/common.margin-padding.scss'
+import '../assets/styles/common.size.scss'
+import '../assets/styles/common.scss'
+import '../assets/styles/kl-style.scss'
 // 此包不打包，各项目内部加载
-// import '@/assets/styles/iconfont/iconfont.js'
+// import '../assets/styles/iconfont/iconfont.js'
 import TransformDom from 'vue3-transform-dom';
 import ElementPlus, { ElMessage, messageTypes } from "element-plus";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-import KLLocationDiv from '@/components/KLLocationDiv.vue';
-import KLTransform from '@/components/KLTransform.vue';
-import KLInput from '@/components/KLInput.vue';
-import KLButton from '@/components/KLButton.vue';
-import KLDialog from '@/components/KLDialog.vue';
-import KLIcon from '@/components/KLIcon.vue';
-import KLImageAnnotation from '@/components/KLImageAnnotation.vue';
-import KLNavBar from '@/components/KLNavBar.vue';
-import KLPagination from '@/components/KLPagination.vue';
-import KLCrosshair from "@/components/KLCrosshair.vue";
-import KLCameraImage from "@/components/KLCameraImage/index.vue";
+import KLLocationDiv from '../components/KLLocationDiv.vue';
+import KLTransform from '../components/KLTransform.vue';
+import KLInput from '../components/KLInput.vue';
+import KLButton from '../components/KLButton.vue';
+import KLDialog from '../components/KLDialog.vue';
+import KLIcon from '../components/KLIcon.vue';
+import KLImageAnnotation from '../components/KLImageAnnotation.vue';
+import KLNavBar from '../components/KLNavBar.vue';
+import KLPagination from '../components/KLPagination.vue';
+import KLCrosshair from "../components/KLCrosshair.vue";
+import KLCameraImage from "../components/KLCameraImage/index.vue";
 import KLPopoverList from "./KLPopoverList.vue";
 import KLLocationPoint from "./KLLocationPoint.vue";
 

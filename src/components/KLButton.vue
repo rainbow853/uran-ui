@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from "vue"; 
+import { computed } from "vue";
 
 const props = defineProps<{
   content?: string;
@@ -22,10 +22,13 @@ const style = computed(() => {
 });
 </script>
 <template>
-  <div class="kl-btn shadow-inline"
+  <div class="kl-throttle-btn kl-btn shadow-inline"
     :class="{ highlight, current, warn, large, disabled, 'flex-between': canRemove, 'flex-center': !canRemove }"
     :style="style">
-    <slot name='icon'><KLIcon v-if="name" :name="name" /></slot> <span>{{ content }}</span>
+    <slot name='icon'>
+      <KLIcon v-if="name" :name="name" class="icon" />
+    </slot>
+    <span>{{ content }}</span>
     <el-icon v-if="canRemove" @click.stop="$emit('remove')">
       <CloseBold />
     </el-icon>
@@ -38,31 +41,13 @@ const style = computed(() => {
   cursor: pointer;
   font-weight: 400;
   font-size: 14px;
+  white-space: nowrap;
   color: #000;
   background: #ebf2f8;
   height: 40px;
   padding: 0 10px;
   padding-bottom: 1px;
   transition: box-shadow 0.3s;
-}
-
-/** 防止按钮重复点击 https://juejin.cn/post/7165828047520661534?searchId=20231207143441CFC059E251EAB3826714 */
-.kl-btn {
-  animation: throttle 0.5s step-end forwards;
-}
-
-.kl-btn:active {
-  animation: none;
-}
-
-@keyframes throttle {
-  from {
-    pointer-events: none;
-  }
-
-  to {
-    pointer-events: all;
-  }
 }
 
 .kl-btn.large {

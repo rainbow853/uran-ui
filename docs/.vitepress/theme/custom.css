@@ -1,0 +1,21 @@
+/* .vitepress/theme/custom.css */
+:root {
+  --vp-c-brand-1: #646cff;
+  --vp-c-brand-2: #747bff;
+  --vp-layout-max-width: 1920px;
+}
+
+.VPDoc.has-aside .content-container {
+  max-width: 100% !important;
+}
+
+body {
+  /* 覆盖uran-ui全局样式 */
+  background: none !important;
+  overflow: auto !important;
+}
+
+
+* {
+  user-select: auto !important;
+}
