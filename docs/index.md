@@ -19,7 +19,7 @@ features:
     link: ./KLIcon
   - icon: 
       src: /img/Css.svg
-    title: 基础CSS
+    title: 全局CSS
     details: uran-ui提供部分常用css
     link: ./CSS
     
