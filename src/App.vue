@@ -6,12 +6,14 @@ import Button from './views/Button.vue'
 import Icon from './views/Icon.vue'
 import Input from './views/Input.vue'
 import PopoverList from './views/PopoverList.vue'
+import NavBar from './views/NavBar.vue'
 import CameraImage from './views/CameraImage.vue'
 const Com: { [key: string]: Component } = {
   Icon,
   Button,
   Input,
   PopoverList,
+  NavBar,
   CameraImage,
 }
 

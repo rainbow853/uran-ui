@@ -25,6 +25,7 @@ export default defineConfig({
           { text: 'KLButton 按钮', link: '/KLButton' },
           { text: 'KLInput 输入框', link: '/KLInput' },
           { text: 'KLPopoverList 弹出框', link: '/KLPopoverList' },
+          { text: 'KLNavBar 导航条', link: '/KLNavBar' },
           { text: 'KLCameraImage 相机实时画面', link: '/KLCameraImage' },
         ]
       }
