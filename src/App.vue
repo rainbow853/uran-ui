@@ -9,6 +9,7 @@ import PopoverList from './views/PopoverList.vue'
 import NavBar from './views/NavBar.vue'
 import Pagination from '../src/views/Pagination.vue'
 import Crosshair from '../src/views/Crosshair.vue'
+import Dialog from './views/Dialog.vue'
 import CameraImage from './views/CameraImage.vue'
 const Com: { [key: string]: Component } = {
   Icon,
@@ -18,6 +19,7 @@ const Com: { [key: string]: Component } = {
   NavBar,
   Pagination,
   Crosshair,
+  Dialog,
   CameraImage,
 }
 

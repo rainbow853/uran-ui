@@ -28,6 +28,7 @@ export default defineConfig({
           { text: 'KLNavBar 导航条', link: '/KLNavBar' },
           { text: 'KLPagination 分页', link: '/KLPagination' },
           { text: 'KLCrosshair 十字辅助线', link: '/KLCrosshair' },
+          { text: 'KLDialog 弹窗', link: '/KLDialog' },
           { text: 'KLCameraImage 相机实时画面', link: '/KLCameraImage' },
         ]
       }

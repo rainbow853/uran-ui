@@ -1,7 +1,3 @@
----
-hello: world
----
-
 <script setup>
 import Button from '../src/views/Button.vue'
 </script>

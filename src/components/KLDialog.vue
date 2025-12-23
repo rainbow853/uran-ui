@@ -1,23 +1,20 @@
 <template>
-  <div class="dialog flex-center" :class="{ move: canMove }">
+  <div v-if="showDialog" class="dialog flex-center" :class="{ move: canMove }">
     <div class="dialog-box flex-col" :class="{ full }" :style="boxStyle">
       <slot name="header">
-        <div class="dialog-header flex-between" @mousedown="mousedown" :style="{ height: headHeight + 'px' }">
-          <KLIcon v-if="titleIcon" :name="titleIcon" />
-          <span class="flex-ellipsis">
-            <slot name="header-text">{{ title }}</slot>
-          </span>
-          <el-icon class="mr10 cursor" :style="{color:'#fff'}"  @click="dialogClose" >
+        <div class="dialog-header flex-between" @mousedown="mousedown">
+          <span class="flex-ellipsis">{{ title }}</span>
+          <el-icon class="mr10 cursor" :style="{ color: '#fff' }" @click="dialogClose">
             <CloseBold />
           </el-icon>
         </div>
       </slot>
       <div class="dialog-main">
-        <slot name="main">
+        <slot name="main" :close="dialogClose">
           默认弹窗
         </slot>
       </div>
-      <slot name="footer" v-if="footer" :close="dialogClose">
+      <slot name="footer" v-if="footer" :hiddenDialog="hiddenDialog">
         <div class="dialog-footer flex-center">
           <KLButton :width="80" :height="30" content="确定" @click="dialogSure" />
           <KLButton :width="80" :height="30" content="取消" @click="dialogCancel" />
@@ -31,6 +28,10 @@
 
 export default {
   props: {
+    showDialog: {
+      type: Boolean,
+      default: true,
+    },
     canMove: {
       type: Boolean,
       default: false,
@@ -43,10 +44,6 @@ export default {
     },
     cancel: {
       type: Function
-    },
-    headHeight: {
-      type: [Number, String],
-      default: 50
     },
     width: {
       type: [Number, String],
@@ -61,9 +58,6 @@ export default {
     title: {
       type: String,
       default: '恢复出厂设置'
-    },
-    titleIcon: {
-      type: String,
     },
     footer: {
       default: true
@@ -86,20 +80,24 @@ export default {
     },
   },
   methods: {
+    hiddenDialog() {
+      this.$emit('update:showDialog', false);
+      this.$remove && this.$remove();
+    },
     dialogClose() {
-      if (!this.close) return this.$remove();
+      if (!this.close) return this.hiddenDialog();
       const preventClose = this.close(this);
-      preventClose || this.$remove();
+      preventClose || this.hiddenDialog();
     },
     dialogSure(value) {
-      if (!this.sure) return this.$remove();
+      if (!this.sure) return this.hiddenDialog();
       const preventClose = this.sure(this);
-      preventClose || this.$remove();
+      preventClose || this.hiddenDialog();
     },
     dialogCancel() {
-      if (!this.cancel) return this.$remove();
+      if (!this.cancel) return this.hiddenDialog();
       const preventClose = this.cancel(this);
-      preventClose || this.$remove();
+      preventClose || this.hiddenDialog();
     },
     mousedown(e) {
       this.downBoundingClientRect = this.$el.firstChild.getBoundingClientRect();
