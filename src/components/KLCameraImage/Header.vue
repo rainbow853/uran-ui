@@ -157,8 +157,6 @@ function hiddenVideo() {
       <KLIcon v-if="helpVideo" title="视频讲解" class="ml10" name="help-video" shadow @click="showVideo" />
     </div>
     <div class="flex-vertical">
-      <KLIcon shadow name="fullscreen" @click="restoreImage" />
-      <span>画面比例：</span>
       <span class="flex-vertical ratio-input">
         <el-icon @click="zoomByCenter(false)">
           <Minus />
@@ -168,6 +166,7 @@ function hiddenVideo() {
           <Plus />
         </el-icon>
       </span>
+      <KLIcon shadow name="fullscreen" @click="restoreImage" />
     </div>
     <KLDialog v-if="videoVisible" title="视频讲解" canMove :footer="false" :close="hiddenVideo">
       <template #main>
