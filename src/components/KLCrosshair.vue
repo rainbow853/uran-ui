@@ -1,14 +1,11 @@
 <script setup lang="ts">
-interface coor {
-  x: number;
-  y: number;
-}
+import type { coor } from '../type';
+
 const props = defineProps<{
   coor: coor;
   color: string;
-  width?: number;
-  height?: number;
   scale: number;
+  lock?: boolean;
 }>()
 
 let downCoorX = 0;
@@ -40,8 +37,8 @@ function mousedown(e: MouseEvent) {
   downCoorY = props.coor.y;
   downPageX = e.pageX;
   downPageY = e.pageY;
-  maxWidth = props.width || (e.currentTarget as any).parentNode.clientWidth;
-  maxHeight = props.height || (e.currentTarget as any).parentNode.clientHeight;
+  maxWidth = (e.currentTarget as any).parentNode.clientWidth;
+  maxHeight = (e.currentTarget as any).parentNode.clientHeight;
   document.addEventListener('mousemove', mousemove)
   document.addEventListener('mouseup', mouseup)
 }
@@ -65,7 +62,7 @@ function mouseup(e: MouseEvent) {
 </script>
 
 <template>
-  <div class="cross-warpper" :style="{ 'font-size': 2 / scale + 'px', '--bg': color }">
+  <div class="cross-warpper" :class="{ lock: lock }" :style="{ 'font-size': 2 / scale + 'px', '--bg': color }">
     <div class="row-cross" @mousedown="downRow" :style="{ top: coor.y + 'px' }"></div>
     <div class="col-cross" @mousedown="downCol" :style="{ left: coor.x + 'px' }"></div>
     <div class="thumb" @mousedown="downRowCol" :style="{ left: coor.x + 'px', top: coor.y + 'px' }"></div>
@@ -76,6 +73,12 @@ function mouseup(e: MouseEvent) {
 .cross-warpper {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+}
+
+.cross-warpper.lock .row-cross,
+.cross-warpper.lock .col-cross,
+.cross-warpper.lock .thumb {
   pointer-events: none;
 }
 

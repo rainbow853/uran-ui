@@ -7,6 +7,8 @@ import Icon from './views/Icon.vue'
 import Input from './views/Input.vue'
 import PopoverList from './views/PopoverList.vue'
 import NavBar from './views/NavBar.vue'
+import Pagination from '../src/views/Pagination.vue'
+import Crosshair from '../src/views/Crosshair.vue'
 import CameraImage from './views/CameraImage.vue'
 const Com: { [key: string]: Component } = {
   Icon,
@@ -14,6 +16,8 @@ const Com: { [key: string]: Component } = {
   Input,
   PopoverList,
   NavBar,
+  Pagination,
+  Crosshair,
   CameraImage,
 }
 

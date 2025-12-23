@@ -26,6 +26,8 @@ export default defineConfig({
           { text: 'KLInput 输入框', link: '/KLInput' },
           { text: 'KLPopoverList 弹出框', link: '/KLPopoverList' },
           { text: 'KLNavBar 导航条', link: '/KLNavBar' },
+          { text: 'KLPagination 分页', link: '/KLPagination' },
+          { text: 'KLCrosshair 十字辅助线', link: '/KLCrosshair' },
           { text: 'KLCameraImage 相机实时画面', link: '/KLCameraImage' },
         ]
       }
