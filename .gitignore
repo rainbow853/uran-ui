@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 docs/.vitepress/cache
+tsconfig.node.tsbuildinfo
+vite.config.js
+lib
