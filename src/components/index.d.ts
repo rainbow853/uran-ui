@@ -3,7 +3,6 @@ import KLIcon from "./KLIcon.vue";
 import KLInput from "./KLInput.vue";
 import KLNavBar from './KLNavBar.vue'
 import KLPagination from "./KLPagination.vue";
-import KLLocationDiv from './KLLocationDiv.vue'
 import KLTransform from './KLTransform.vue'
 import KLImageAnnotation from './KLImageAnnotation.vue'
 import KLDialog from "./KLDialog.vue";
@@ -21,7 +20,6 @@ declare module '@vue/runtime-core' {
     KLInput: typeof KLInput;
     KLNavBar: typeof KLNavBar;
     KLPagination: typeof KLPagination;
-    KLLocationDiv: typeof KLLocationDiv;
     KLTransform: typeof KLTransform;
     KLImageAnnotation: typeof KLImageAnnotation;
     KLDialog: typeof KLDialog;

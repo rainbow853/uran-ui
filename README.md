@@ -18,15 +18,7 @@ Vue.use(uranUI);
 ```
 
 # 3.包含的组件
- 
-KLLocationDiv 定位框
-KLTransform 图片缩放组件
-KLImageAnnotation 物料回溯外层组件
-KLButton 按钮
-KLDialog 弹窗
-KLNavBar 导航按钮
-KLPagination 
-...
+`npm run docs:dev` 查看
 
 # 4.组件文档
 >[https://kaolayouran.feishu.cn/docx/QZzxdBRJgo4xzVxCUmwcxuyPnnc](https://kaolayouran.feishu.cn/docx/QZzxdBRJgo4xzVxCUmwcxuyPnnc)

@@ -19,6 +19,11 @@
   --kl-padding-small: 20px;
   --kl-padding-mini: 10px;
   --kl-disabled-btn-timer: 0.5s;
+  --kl-stroke-size: 2px;
+  --kl-stroke-1-2: calc(var(--kl-stroke-size) / 2);
+  --kl-thumb-size: calc(var(--kl-stroke-size) * 4);
+  --kl-stroke-color: #f00;
+  --kl-hl-stroke-color: #ffa500;
 }
 
 * {
@@ -76,11 +81,9 @@ body {
   border: var(--el-border);
 }
 
-
 .bg-black {
   background: #000;
 }
-
 
 /** 防止按钮重复点击 https://juejin.cn/post/7165828047520661534?searchId=20231207143441CFC059E251EAB3826714 */
 .kl-throttle-btn {

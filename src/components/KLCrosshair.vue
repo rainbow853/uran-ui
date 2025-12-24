@@ -1,71 +1,52 @@
 <script setup lang="ts">
 import type { coor } from '../type';
+import { useMousedownEvent, MouseDownEleInfo } from '../composables/useMousedownEvent';
 
 const props = defineProps<{
   coor: coor;
   color: string;
-  scale: number;
   lock?: boolean;
 }>()
 
-let downCoorX = 0;
-let downCoorY = 0;
-let downPageX = 0;
-let downPageY = 0;
-let enabledRow = true;
-let enabledCol = true;
-function downRow(e: MouseEvent) {
-  enabledRow = true;
-  enabledCol = false;
-  mousedown(e);
+
+let updateFn: (curPos: coor) => void;
+function getUpdateROIFn(hlElement: string, eleInfo: MouseDownEleInfo) {
+  function updateY(y: number) {
+    props.coor.y = Math.max(0, Math.min(eleInfo.clientHeight, y));
+  }
+  function updateX(x: number) {
+    props.coor.x = Math.max(0, Math.min(eleInfo.clientWidth, x));
+  }
+  return function updateFn(curPos: coor) {
+    if (hlElement === 'row-cross') return updateY(curPos.y);
+    if (hlElement === 'col-cross') return updateX(curPos.x);
+    if (hlElement === 'thumb') {
+      updateX(curPos.x);
+      updateY(curPos.y);
+    }
+  }
 }
-function downCol(e: MouseEvent) {
-  enabledRow = false;
-  enabledCol = true;
-  mousedown(e);
-}
-function downRowCol(e: MouseEvent) {
-  enabledRow = true;
-  enabledCol = true;
-  mousedown(e);
-}
-let maxWidth: number;
-let maxHeight: number;
-function mousedown(e: MouseEvent) {
-  e.stopPropagation();
-  downCoorX = props.coor.x;
-  downCoorY = props.coor.y;
-  downPageX = e.pageX;
-  downPageY = e.pageY;
-  maxWidth = (e.currentTarget as any).parentNode.clientWidth;
-  maxHeight = (e.currentTarget as any).parentNode.clientHeight;
-  document.addEventListener('mousemove', mousemove)
-  document.addEventListener('mouseup', mouseup)
-}
-function mousemove(e: MouseEvent) {
-  e.stopPropagation();
-  if (enabledCol) props.coor.x = Math.min(
-    maxWidth,
-    Math.max(0, ~~((e.pageX - downPageX) / props.scale) + downCoorX)
-  );
-  if (enabledRow) props.coor.y =
-    Math.min(
-      maxHeight,
-      ~~((e.pageY - downPageY) / props.scale) + downCoorY
-    );
-}
-function mouseup(e: MouseEvent) {
-  document.removeEventListener('mousemove', mousemove)
-  document.removeEventListener('mouseup', mouseup)
-  mousemove(e);
-}
+
+const { mousedown } = useMousedownEvent({
+  getDOM: (e: MouseEvent) => e.currentTarget as any,
+  mousedown(_downPos: coor, eleInfo: MouseDownEleInfo, e: MouseEvent) {
+    const targetNode = e.target as HTMLElement;
+    updateFn = getUpdateROIFn(targetNode.className, eleInfo);
+  },
+  mousemove(_downPos: coor, curPos: coor) {
+    updateFn(curPos);
+  },
+  mouseup(_downPos: coor, curPos: coor) {
+    updateFn(curPos);
+  },
+});
 </script>
 
 <template>
-  <div class="cross-warpper" :class="{ lock: lock }" :style="{ 'font-size': 2 / scale + 'px', '--bg': color }">
-    <div class="row-cross" @mousedown="downRow" :style="{ top: coor.y + 'px' }"></div>
-    <div class="col-cross" @mousedown="downCol" :style="{ left: coor.x + 'px' }"></div>
-    <div class="thumb" @mousedown="downRowCol" :style="{ left: coor.x + 'px', top: coor.y + 'px' }"></div>
+  <div ref="el" class="cross-warpper" :class="{ lock: lock }" :style="{ '--bg': color }" @mousedown="mousedown">
+    <div class="row-cross" :style="{ top: coor.y + 'px' }"></div>
+    <div class="col-cross" :style="{ left: coor.x + 'px' }"></div>
+    <div class="thumb" :style="{ left: coor.x + 'px', top: coor.y + 'px' }"></div>
   </div>
 </template>
 
@@ -87,7 +68,7 @@ function mouseup(e: MouseEvent) {
   left: 0;
   right: 0;
   top: 0;
-  height: 1em;
+  height: var(--kl-stroke-size);
   transform: translateY(-50%);
   cursor: n-resize;
   background: var(--bg);
@@ -98,7 +79,7 @@ function mouseup(e: MouseEvent) {
   content: "";
   display: block;
   width: 100%;
-  height: 10em;
+  height: var(--kl-thumb-size);
   top: 50%;
   transform: translateY(-50%);
   cursor: n-resize;
@@ -109,7 +90,7 @@ function mouseup(e: MouseEvent) {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 1em;
+  width: var(--kl-stroke-size);
   transform: translateX(-50%);
   cursor: e-resize;
   background: var(--bg);
@@ -120,7 +101,7 @@ function mouseup(e: MouseEvent) {
   content: "";
   display: block;
   height: 100%;
-  width: 10em;
+  width: var(--kl-thumb-size);
   left: 50%;
   transform: translateX(-50%);
   cursor: e-resize;
@@ -128,8 +109,8 @@ function mouseup(e: MouseEvent) {
 
 .thumb {
   position: absolute;
-  width: 10em;
-  height: 10em;
+  width: var(--kl-thumb-size);
+  height: var(--kl-thumb-size);
   left: 0;
   top: 0;
   transform: translate(-50%, -50%);

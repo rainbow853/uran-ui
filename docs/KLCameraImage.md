@@ -24,7 +24,7 @@ import CameraImage from '../src/views/CameraImage.vue'
 |showCrosshair |鼠标位置显示十字线 |`boolean` |false|
 |grabImageSuccessCB |采集图像后回调函数 |`(image: image) => void` |-|
 |helpVideo |帮助视频地址 |string |-|
-|rectCallback |鼠标右键绘制矩阵框回调函数 |`(roi: roi) => boolean` |-|
+|rectCallback |鼠标右键绘制矩阵框回调函数，返回值为是否继续显示绘制的矩形框 |`(roi: roi) => boolean` |-|
 
 ## slot
 |插槽名|说明|数据|

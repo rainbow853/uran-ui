@@ -13,7 +13,6 @@ import TransformDom from 'vue3-transform-dom';
 import ElementPlus, { ElMessage, messageTypes } from "element-plus";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
-import KLLocationDiv from '../components/KLLocationDiv.vue';
 import KLTransform from '../components/KLTransform.vue';
 import KLInput from '../components/KLInput.vue';
 import KLButton from '../components/KLButton.vue';
@@ -23,9 +22,9 @@ import KLImageAnnotation from '../components/KLImageAnnotation.vue';
 import KLNavBar from '../components/KLNavBar.vue';
 import KLPagination from '../components/KLPagination.vue';
 import KLCrosshair from "../components/KLCrosshair.vue";
+import KLROI from '../components/KLROI.vue';
 import KLCameraImage from "../components/KLCameraImage/index.vue";
 import KLPopoverList from "./KLPopoverList.vue";
-import KLLocationPoint from "./KLLocationPoint.vue";
 
 function useComponent(app: App) {
   app.use(ElementPlus, { locale: zhCn }).use(TransformDom);
@@ -36,13 +35,12 @@ function useComponent(app: App) {
   app.component("KLInput", KLInput);
   app.component('KLNavBar', KLNavBar)
   app.component("KLPagination", KLPagination);
-  app.component('KLLocationDiv', KLLocationDiv);
   app.component('KLTransform', KLTransform);
   app.component('KLCrosshair', KLCrosshair)
+  app.component('KLROI', KLROI)
   app.component('KLCameraImage', KLCameraImage)
   app.component('KLImageAnnotation', KLImageAnnotation)
   app.component("KLPopoverList", KLPopoverList);
-  app.component("KLLocationPoint", KLLocationPoint);
 
   app.component("KLDialog", KLDialog);
   app.provide('klDialog', (Component: Element, props: any) => {

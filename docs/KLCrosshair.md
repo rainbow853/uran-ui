@@ -14,5 +14,4 @@ import Crosshair from '../src/views/Crosshair.vue'
 |---|---|---|:---:|
 |coor |辅助线坐标 |`{x: number, y: number}` |-|
 |color |辅助线颜色 |`string` |-|
-|scale |辅助线父元素缩放比例 |`number` |-|
 |lock |是否固定辅助线（此时拖拽辅助线事件失效） |`boolean` |false|
