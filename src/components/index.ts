@@ -13,6 +13,7 @@ import TransformDom from 'vue3-transform-dom';
 import ElementPlus, { ElMessage, messageTypes } from "element-plus";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+import { setConfig, KLConfig, config } from './config';
 import KLTransform from '../components/KLTransform.vue';
 import KLInput from '../components/KLInput.vue';
 import KLButton from '../components/KLButton.vue';
@@ -58,10 +59,14 @@ function useComponent(app: App) {
   for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component);
   }
+
+  config.install && config.install(app);
 }
 
 export default {
-  install: (app: App) => {
+  install: (app: App, config?: Partial<KLConfig>) => {
+    config && setConfig(config);
+
     useComponent(app);
 
     messageTypes.forEach((type) => {

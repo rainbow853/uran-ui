@@ -13,6 +13,12 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: '开始',
+        items: [
+          { text: '快速上手', link: '/start' },
+        ]
+      },
+      {
         text: '全局CSS',
         items: [
           { text: '全局CSS', link: '/CSS' },

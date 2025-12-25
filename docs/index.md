@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: alt
       text: 开始
-      link: /KLIcon
+      link: /start
 
 features:
   - icon: 

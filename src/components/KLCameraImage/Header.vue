@@ -3,6 +3,7 @@ import { ref, computed, watchEffect } from 'vue';
 import { ElMessage } from "element-plus";
 import type { Camera, Subscribe, grabType } from 'kl-camera-frontend';
 import type { grid, crosshair } from './index.vue';
+import { config } from '../config';
 
 const props = defineProps<{
   camera?: Camera;
@@ -13,7 +14,7 @@ const props = defineProps<{
   crosshairCenter: () => void;
   zoomByCenter: (zoomOut: boolean) => void;
   restoreImage: () => void;
-  grabImageSuccessCB: (image: any) => void;
+  grabImageSuccessCB?: (image: any) => void;
   helpVideo?: string;
 }>()
 const isSubscribed = computed(() => {
@@ -41,7 +42,10 @@ async function grabImage() {
   const image = await props.subscribe.grabImage(true);
   disabledGrabImage.value = false;
   if (!image) return ElMessage.error('采集图像失败');
-  props.grabImageSuccessCB(image);
+
+  props.grabImageSuccessCB ?
+    props.grabImageSuccessCB(image) :
+    config.grabImageSuccessCB ? config.grabImageSuccessCB(image) : null;
 }
 
 const predefineColors = ref(['#ff0000', '#ff8c00', '#ffd700', '#90ee90', '#00ced1', '#1e90ff', '#c71585', '#ff00ff']);

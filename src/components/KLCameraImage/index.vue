@@ -39,7 +39,7 @@ const props = defineProps<{
   camera?: Camera;
   stopGrab?: boolean;
   showCrosshair?: boolean;
-  grabImageSuccessCB: (image: any) => void;
+  grabImageSuccessCB?: (image: any) => void;
   helpVideo?: string;
   rectCallback?: (roi: roi) => boolean;
 }>()
