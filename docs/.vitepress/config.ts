@@ -37,6 +37,7 @@ export default defineConfig({
           { text: 'KLROI 矩形定位框', link: '/KLROI' },
           { text: 'KLDialog 弹窗', link: '/KLDialog' },
           { text: 'KLCameraImage 相机实时画面', link: '/KLCameraImage' },
+          { text: 'KLImageAnnotation 图像标注', link: '/KLImageAnnotation' },
         ]
       }
     ],

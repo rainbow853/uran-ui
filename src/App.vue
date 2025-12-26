@@ -12,6 +12,7 @@ import Crosshair from '../src/views/Crosshair.vue'
 import ROI from '../src/views/ROI.vue'
 import Dialog from './views/Dialog.vue'
 import CameraImage from './views/CameraImage.vue'
+import ImageAnnotation from './views/ImageAnnotation.vue'
 const Com: { [key: string]: Component } = {
   Icon,
   Button,
@@ -23,9 +24,10 @@ const Com: { [key: string]: Component } = {
   ROI,
   Dialog,
   CameraImage,
+  ImageAnnotation,
 }
 
-const activeName = ref('CameraImage')
+const activeName = ref('ImageAnnotation')
 
 const handleClick = (tab: TabsPaneContext, event: Event) => {
   console.log(tab, event)

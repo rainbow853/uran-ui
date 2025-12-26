@@ -107,7 +107,7 @@ defineExpose({
       :style="{ '--grid-color': grid.color, '--grid-step': grid.step + 'px' }">
       <template v-slot="{ scale }">
         <div class="wh-full" @mousemove="mousemove" @mousedown="mousedown" @contextmenu.stop.prevent
-          :style="{ '--kl-stroke-size': Math.ceil(2 / scale) + 'px' }">
+          :style="{ '--kl-stroke-size': (2 / scale) + 'px' }">
           <KLCrosshair v-if="crosshair.show && crosshair.inner" :coor="crosshair.coor" :color="crosshair.color"
             :width="width" :height="height" :scale="scale" />
           <KLCrosshair v-if="showCrosshair" :coor="coor" :color="crosshair.color" :width="width" :height="height"
@@ -127,6 +127,11 @@ defineExpose({
 </template>
 
 <style lang="scss" scoped>
+.wh-full {
+  --kl-stroke-1-2: calc(var(--kl-stroke-size) / 2);
+  --kl-thumb-size: calc(var(--kl-stroke-size) * 4);
+}
+
 .camera-content-warpper {
   position: relative;
   height: 400px;

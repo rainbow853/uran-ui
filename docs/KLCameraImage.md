@@ -20,7 +20,7 @@ import CameraImage from '../src/views/CameraImage.vue'
 
 |属性|说明|类型|默认值|
 |---|---|---|:---:|
-|camera |相机实例 |[Camera](https://github.com/fengqing1101/kl-camera-frontend) |-|
+|camera |相机实例 |[Camera](https://github.com/ranbow853/kl-camera-frontend) |-|
 |showCrosshair |鼠标位置显示十字线 |`boolean` |false|
 |grabImageSuccessCB |采集图像后回调函数 |`(image: image) => void` |-|
 |helpVideo |帮助视频地址 |string |-|

@@ -1,256 +1,167 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, watch } from 'vue';
-import type { ComputedRef, Ref } from 'vue';
-import { ElMessage } from 'element-plus';
-const emit = defineEmits(['submit', 'contextmenuImage', 'keydownEvent']);
-interface rect {
-  id: number;
-  position: number[];
-  [key: string]: any;
-}
-interface RectChangeEvent {
-  from: any, rect: null | rect, silent?: boolean
-}
-const props = defineProps<{
-  // 标注信息列表，显示在右上角；[{title,content}]
-  annotations: { title: string; content: string }[];
-  imgSrc: string;
-  preImgSrc?: string;
-  imgMaskSrc?: string;
-  imgSourceRrc?: string;
-  width: number;
-  height: number;
-  rects: rect[];
-  customField?: string;
-  // rect被选中时的边框颜色
-  rectSelectedColor?: string;
-  // 确认按钮提示
-  submitBtn?: string;
-  // 禁止右键移动画布
-  disableContextMove?: boolean;
-  // 鼠标事件
-  mousedownImageEvent?: Function;
-}>();
-const _imgSrc = useImgsLoadCache(computed(() => props.imgSrc));
-const _preImgSrc = ref<string | undefined>('')
+import { ref, computed, watch } from 'vue';
+import type { coor } from '../type';
+import type { RectChangeEvent, ImageAnnotationProps } from './KLImageAnnotation';
+import { RectChangeEventFrom, coorInRect, findNextByTarget } from './KLImageAnnotation';
+const props = defineProps<ImageAnnotationProps>();
+
 const transform = ref();
 // 只看原图
 const onlyViewSourceImg = ref(false);
+// 查看掩膜
 const showMask = ref(false);
 // 当前被选中的rect
 const curRectChange = ref<RectChangeEvent>({ from: null, rect: null, silent: false });
 // 当前被选中的rect的索引
 const curSelectIndex = computed(() => curRectChange.value.rect ? props.rects.indexOf(curRectChange.value.rect) : -1);
-const coor = ref({ x: 0, y: 0 })//鼠标位置
-watch(() => _imgSrc, () => {
-  _preImgSrc.value = _imgSrc.value ? props.preImgSrc : ''
-})
 watch(curRectChange, (_curRectChange) => {
-  if (_curRectChange.silent || _curRectChange.from === transform.value || !_curRectChange.rect) return
-  transform.value?.scrollToRect(_curRectChange.rect[props.customField || 'position'])
+  if (_curRectChange.silent || _curRectChange.from === RectChangeEventFrom.IMAGE || !_curRectChange.rect) return
+  scrollToRect(_curRectChange.rect.position)
 })
 
-onMounted(async () => {
-  document.addEventListener('keydown', keydown);
-})
-onUnmounted(async () => {
-  document.removeEventListener('keydown', keydown);
-  /**
-   * 使用图片加载缓存
-   *
-   * @param imgSrcWanted 所需的图片地址，可以是计算属性或响应式引用
-   * @returns 返回响应式引用，表示已加载的图片地址
-   */
-})
-function useImgsLoadCache(imgSrcWanted: ComputedRef<string> | Ref<string>): Ref<string> {
-  const imgSrc = ref<string>('');
-
-  watch(imgSrcWanted, (src) => {
-    loadImg(src);
-  }, { immediate: true })
-
-  function loadImg(src: string) {
-    imgSrc.value = '';
-    if (!src) return;
-    const img = new Image();
-    img.src = src;
-    img.decode().finally(() => {
-      if (imgSrcWanted.value === src) imgSrc.value = src;
-    })
-  }
-
-  return imgSrc;
-}
 /**
  * 重置curRectChange与curSelectIndex，resize
  */
 function reset() {
   curRectChange.value = { from: null, rect: null, silent: false }
-  transform.value?.resize()
+  transform.value?.transfer2window.resize()
 }
+
+/**
+ * 滚动导指定区域
+ */
+function scrollToRect(position: number[]) {
+  transform.value?.transfer2window.scrollToRect(...position.slice(0, 4), 100);
+}
+
 /**
  * 根据索引选中rect
- * @param {number} index 索引
- * @param {boolean} [silent] 是否不需要将图像和rect列表滚动到当前缺陷；默认为false
  */
-function selectByIndex(index: number, silent?: boolean) {
+function selectByIndex(index: number, from: RectChangeEventFrom, silent = false) {
   if (!props.rects[index]) return
-  selectByRect({ from: null, rect: props.rects[index], silent })
+  selectByRect({ from, rect: props.rects[index], silent })
 }
+
 /**
  * 选中rect
  */
 function selectByRect({ rect, from, silent = false }: RectChangeEvent) {
   curRectChange.value = { from, rect: rect, silent }
 }
+
 /**
- * 拷贝图像地址
+ * 获取鼠标相对图像的坐标
  */
-function copyImageSrc() {
-  navigator.clipboard.writeText(props.imgSrc);
-  ElMessage.success('图片地址拷贝成功！');
+function getPosition(e: MouseEvent): coor | null {
+  return transform.value.getPosition(e, true);
 }
-/**
- * 点击确定按钮
- */
-function submit() {
-  emit('submit');
-}
-/**
- * 鼠标右键
- */
-function contextmenu(e: MouseEvent) {
-  const position = transform.value.getImagePosition(e)
-  emit('contextmenuImage', { e, position });
-}
+
 /**
  * 选中rect
  */
-function select(rect: rect) {
+function selectRect(e: MouseEvent) {
+  const position = getPosition(e);
+  if (!position) return;
+  const rects = props.rects.filter(rect => coorInRect(position, rect.position));
+  if (!rects.length) return;
+
   curRectChange.value = {
-    from: transform.value,
-    rect,
+    from: RectChangeEventFrom.IMAGE,
+    rect: findNextByTarget(rects, curRectChange.value.rect),
     silent: false
   }
 }
+
 /**
  * 添加键盘事件，上下左右可以选择缺陷，ESC重置
  */
-function keydown(e: any) {
-  if (e.target.nodeName === 'INPUT') return
-
-  emit('keydownEvent', e)
-
+function keydown(e: KeyboardEvent) {
   const _curSelectIndex = curSelectIndex.value;
   if (e.key === 'ArrowUp') {
     if (_curSelectIndex < 0) return;
-    selectByIndex(_curSelectIndex - 1);
+    selectByIndex(_curSelectIndex - 1, RectChangeEventFrom.KEYBOARD);
+    // 阻止el-scrollbar组件聚焦后键盘上下触发滚动事件
     return e.preventDefault();
   }
 
   if (e.key === 'ArrowDown') {
     if (_curSelectIndex > props.rects.length) return;
-    selectByIndex(_curSelectIndex + 1);
+    selectByIndex(_curSelectIndex + 1, RectChangeEventFrom.KEYBOARD);
+    // 阻止el-scrollbar组件聚焦后键盘上下触发滚动事件
     return e.preventDefault();
   }
-}
-function mousedown(e: MouseEvent) {
-  props.mousedownImageEvent && props.mousedownImageEvent(e);
-}
-function onMouseMove(e: MouseEvent) {
-  coor.value = transform.value?.getImagePosition(e);
+
+  if (e.key === 'Escape' || e.key === ' ') reset()
 }
 
 defineExpose({
+  transform,
   curRectChange,
   reset,
   selectByIndex,
   selectByRect,
-  transform
+  scrollToRect,
+  getPosition,
 })
 </script>
-
 <template>
-  <div class="image-annotatation flex-between">
-    <slot name="imageNav"></slot>
-    <KLTransform ref="transform" class="left-aside" :disableContextMove="disableContextMove" :width="width"
-      :height="height" @contextmenu="contextmenu"  @mousemove="onMouseMove">
-      <template #inner="{ scale }">
-        <div class="image-rects-div" @mousedown="mousedown">
-          <img class="img-default" :class="{ 'img-active': _imgSrc != preImgSrc }" v-show="_imgSrc" :src="_imgSrc"
-            draggable="false">
-          <img class="img-default" :class="{ 'img-active': _imgSrc == preImgSrc }" v-show="preImgSrc" :src="preImgSrc"
-            draggable="false">
-
-          <img class="mask" v-if="showMask" :src="imgMaskSrc" draggable="false">
-          <img class="source" v-if="onlyViewSourceImg" :src="imgSourceRrc" draggable="false">
-          <div class="rect-div" v-if="!onlyViewSourceImg" :style="{ '--border-width': Math.ceil(1 / scale) + 'px' }">
-
-            <div :style="{
-      left: rect[customField || 'position'][0] + 'px',
-      top: rect[customField || 'position'][1] + 'px',
-      width: rect[customField || 'position'][2] + 'px',
-      height: rect[customField || 'position'][3] + 'px',
-      'border-color': (rect === curRectChange?.rect ? rectSelectedColor : rect.color) || rect.color || 'red',
-      'border-style': rect === curRectChange?.rect ? 'dashed' : 'solid'
-    }" v-for="rect in rects" :key="rect.id" @click="select(rect)">
+  <div class="image-annotatation flex-between" tabindex="101" @keydown="keydown">
+    <div class="left-aside">
+      <transform-dom class="bg-black" ref="transform" disableContextMove limitInWindow :width="width" :height="height">
+        <template v-slot="{ scale }">
+          <div class="image-rects-div" @mousedown="mousedownImageEvent" @contextmenu="contextmenuImageEvent"
+            @click="selectRect">
+            <img v-if="imgSrc" :src="imgSrc" draggable="false">
+            <img v-if="showMask" :src="imgMaskSrc" class="mask-img" draggable="false">
+            <div class="rect-div" v-if="!onlyViewSourceImg" :style="{ '--border-width': Math.ceil(2 / scale) + 'px' }">
+              <div :style="{
+                left: rect.position[0] + 'px',
+                top: rect.position[1] + 'px',
+                width: rect.position[2] + 'px',
+                height: rect.position[3] + 'px',
+                'border-color': rect.color || '',
+                'border-style': index === curSelectIndex ? 'dashed' : 'solid'
+              }" v-for="(rect, index) in rects" :key="rect.id">
+                <div class="bottom-100">{{ rect.measureDesc }}</div>
+              </div>
             </div>
-
           </div>
-        </div>
-        <slot name="inner" :scale="scale"></slot>
-      </template>
-      <template #outer>
-        <slot name="image" v-bind="{ coor }"></slot>
-      </template>
-    </KLTransform>
+          <slot name="image" :scale="scale"></slot>
+        </template>
+      </transform-dom>
+      <slot name="canvas"></slot>
+    </div>
     <div class="right-aside flex-between">
-      <div v-if="annotations.length" class="annotations-list shadow-block flex-between por">
+      <div class="annotations-list shadow-block flex-between">
         <div class="info-item" v-for="(item, index) in annotations" :key="index">
           <span class="title">{{ item.title }}：</span>
           <span class="ellipsis">{{ item.content }}</span>
         </div>
-        <slot name="changeMaterial"></slot>
-        <slot name="detail"></slot>
+        <slot name="text-detail"></slot>
       </div>
       <div class="rects-list shadow-block flex-between">
         <div class="rects-top split-line flex-between">
-          <slot name="selectWork"></slot>
-          <div class="image-select">
-            <div class="flex">
-              <div class="flex-center mr5" v-if="imgMaskSrc">
-                <span class="only-img-label">查看mask</span>
-                <el-switch v-model="showMask" active-color="#477AE0" inactive-color="#999999" />
-              </div>
-              <div class="flex-center">
-                <span class="only-img-label">查看原图</span>
-                <el-switch v-model="onlyViewSourceImg" active-color="#477AE0" inactive-color="#999999" />
-              </div>
-              <slot name="other"></slot>
-            </div>
-            <div class="flex">
-              <slot name="selectFun"></slot>
-            </div>
+          <div class="image-select flex-between">
+            <span class="flex-full">图片选择</span>
+            <el-switch active-text="查看mask" inactive-text="查看mask" inline-prompt v-model="showMask"
+              active-color="#477AE0" inactive-color="#999999" class="mr20" />
+            <el-switch active-text="只看原图" inactive-text="只看原图" inline-prompt v-model="onlyViewSourceImg"
+              active-color="#477AE0" inactive-color="#999999" />
           </div>
-          <slot name="selectImage">
-            <div class="w-full flex-between">
-              <div>图片地址:</div>
-              <div style="width: 260px;" class="select-image-file ellipsis cursor" @click="copyImageSrc">{{ _imgSrc }}
-              </div>
-            </div>
+          <slot name="image-detail">
+            <div class="select-image-file ellipsis cursor">{{ imgSrc }}</div>
           </slot>
         </div>
-        <div style="width: 100%;height: 200px;flex: 1;overflow: hidden;">
-          <slot name="rectList" v-bind="{ selectByRect, curSelectIndex, curRectChange }"></slot>
+        <div class="flex-full w-full">
+          <slot name="rects-detail" v-bind="{ selectByRect, selectByIndex, curSelectIndex, curRectChange }">RectList
+          </slot>
         </div>
       </div>
-      <div class="btn-div shadow-block">
-        <slot name="submit">
-          <div class="btn-div shadow-block flex-center">
-            <KLButton :width="340" :height="60" :content="submitBtn || '确认'" @click="submit" />
-          </div>
-        </slot>
-      </div>
+      <slot name="submit">
+        <div class="btn-div shadow-block flex-center">
+          <KLButton :width="340" :height="60" content="确认" @click="submitEvent" />
+        </div>
+      </slot>
     </div>
   </div>
 </template>
@@ -258,10 +169,14 @@ defineExpose({
 .image-annotatation {
   width: 100%;
   height: 100%;
+  outline: 0;
 
   .left-aside {
+    position: relative;
     flex: 1;
     margin-right: 20px;
+    width: 100px;
+    height: 100%;
 
     .image-rects-div {
       width: 100%;
@@ -272,36 +187,13 @@ defineExpose({
     .image-rects-div>img {
       width: 100%;
       height: 100%;
-    }
-
-    .image-rects-div>.img-default {
       position: absolute;
       left: 0;
       top: 0;
-      z-index: 0;
     }
 
-    .image-rects-div>.img-active {
-      position: absolute;
-      left: 0;
-      top: 0;
-      z-index: 1;
-    }
-
-    .image-rects-div>.mask {
-      position: absolute;
-      left: 0;
-      top: 0;
+    .image-rects-div>.mask-img {
       opacity: 0.5;
-      z-index: 2;
-    }
-
-    .image-rects-div>.source {
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 1;
-      z-index: 2;
     }
 
     .image-rects-div>.rect-div {
@@ -310,11 +202,11 @@ defineExpose({
       top: 0;
       width: 100%;
       height: 100%;
-      z-index: 2;
     }
 
     .rect-div>div {
       border: 1px solid #f00;
+      color: #fff;
       position: absolute;
       border-width: var(--border-width, 1px);
     }
@@ -322,7 +214,7 @@ defineExpose({
 
   .right-aside {
     height: 100%;
-    width: 380px;
+    width: 400px;
     flex-direction: column;
 
     .annotations-list {
@@ -354,25 +246,20 @@ defineExpose({
 
       .image-select {
         width: 100%;
+        margin-bottom: 6px;
       }
 
       .rects-top {
         padding: 20px;
         width: 100%;
-        // height: 110px;
         flex-direction: column;
       }
 
-      .only-img-label {
-        margin-right: 5px;
-      }
-
       .select-image-file {
-        // width: 100%;
+        width: 100%;
         height: 30px;
         line-height: 30px;
         border: 1px solid #c4c4c4;
-        margin-left: 10px;
         padding: 0 4px;
         overflow: hidden;
         direction: rtl;
@@ -412,7 +299,7 @@ defineExpose({
       }
 
       :deep(.list-row.current) {
-        background: rgba(194, 199, 208, 0.3);
+        background: rgba(194, 199, 208, 0.6);
         font-weight: 600;
       }
 
@@ -432,7 +319,7 @@ defineExpose({
 
     .btn-div {
       width: 100%;
-      min-height: 92px;
+      height: 92px;
 
       >.kl-btn {
         font-weight: 600;
@@ -440,36 +327,10 @@ defineExpose({
       }
     }
   }
-}
 
-.filter-button-NG,
-.filter-button-OK {
-  width: 100%;
-  height: 60px;
-  box-shadow: inset -2px -2px 0px #9c9c9c, inset -3px -3px 0px #a8a8a8,
-    inset 2px 2px 0px #e9bcbc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #d64949;
-  font-weight: 600;
-  font-size: 26px;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.filter-button-OK {
-  background: #0ca62e;
-}
-
-.mb10 {
-  margin-bottom: 10px;
-}
-
-.posInfo {
-  position: absolute;
-  z-index: 2;
-  color: red;
-  font-size: 20px;
+  .bottom-100 {
+    position: absolute;
+    bottom: 100%;
+  }
 }
 </style>
