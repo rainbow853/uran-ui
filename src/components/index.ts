@@ -26,6 +26,7 @@ import KLCrosshair from "../components/KLCrosshair.vue";
 import KLROI from '../components/KLROI.vue';
 import KLCameraImage from "../components/KLCameraImage/index.vue";
 import KLPopoverList from "./KLPopoverList.vue";
+import KLMotionController from "./KLMotionController.vue";
 
 function useComponent(app: App) {
   app.use(ElementPlus, { locale: zhCn }).use(TransformDom);
@@ -42,6 +43,7 @@ function useComponent(app: App) {
   app.component('KLCameraImage', KLCameraImage)
   app.component('KLImageAnnotation', KLImageAnnotation)
   app.component("KLPopoverList", KLPopoverList);
+  app.component("KLMotionController", KLMotionController);
 
   app.component("KLDialog", KLDialog);
   app.provide('klDialog', (Component: Element, props: any) => {

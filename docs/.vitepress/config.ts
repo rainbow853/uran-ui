@@ -38,6 +38,7 @@ export default defineConfig({
           { text: 'KLDialog 弹窗', link: '/KLDialog' },
           { text: 'KLCameraImage 相机实时画面', link: '/KLCameraImage' },
           { text: 'KLImageAnnotation 图像标注', link: '/KLImageAnnotation' },
+          { text: 'KLMotionController 运动控制器', link: '/KLMotionController' },
         ]
       }
     ],
