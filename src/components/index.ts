@@ -27,6 +27,9 @@ import KLROI from '../components/KLROI.vue';
 import KLCameraImage from "../components/KLCameraImage/index.vue";
 import KLPopoverList from "./KLPopoverList.vue";
 import KLMotionController from "./KLMotionController.vue";
+import KLDetectOp from "./KLDetectOp.vue";
+import KLDetectStatChip from "./KLDetectStatChip.vue";
+import KLDetectStatMat from "./KLDetectStatMat.vue";
 
 function useComponent(app: App) {
   app.use(ElementPlus, { locale: zhCn }).use(TransformDom);
@@ -44,6 +47,9 @@ function useComponent(app: App) {
   app.component('KLImageAnnotation', KLImageAnnotation)
   app.component("KLPopoverList", KLPopoverList);
   app.component("KLMotionController", KLMotionController);
+  app.component("KLDetectOp", KLDetectOp);
+  app.component("KLDetectStatChip", KLDetectStatChip);
+  app.component("KLDetectStatMat", KLDetectStatMat);
 
   app.component("KLDialog", KLDialog);
   app.provide('klDialog', (Component: Element, props: any) => {

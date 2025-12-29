@@ -13,6 +13,9 @@ import ROI from '../src/views/ROI.vue'
 import Dialog from './views/Dialog.vue'
 import CameraImage from './views/CameraImage.vue'
 import ImageAnnotation from './views/ImageAnnotation.vue'
+import DetectOp from './views/DetectOp.vue'
+import DetectStat from './views/DetectStat.vue'
+
 const Com: { [key: string]: Component } = {
   Icon,
   Button,
@@ -25,6 +28,8 @@ const Com: { [key: string]: Component } = {
   Dialog,
   CameraImage,
   ImageAnnotation,
+  DetectOp,
+  DetectStat,
 }
 
 const activeName = ref('ImageAnnotation')

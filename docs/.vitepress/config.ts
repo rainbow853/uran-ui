@@ -39,6 +39,8 @@ export default defineConfig({
           { text: 'KLCameraImage 相机实时画面', link: '/KLCameraImage' },
           { text: 'KLImageAnnotation 图像标注', link: '/KLImageAnnotation' },
           { text: 'KLMotionController 运动控制器', link: '/KLMotionController' },
+          { text: 'KLDetectStat 检测统计', link: '/KLDetectStat' },
+          { text: 'KLDetectOp 开始/停止检测', link: '/KLDetectOp' },
         ]
       }
     ],
