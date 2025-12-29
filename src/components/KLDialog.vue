@@ -1,27 +1,29 @@
 <template>
-  <div v-if="showDialog" class="dialog flex-center" :class="{ move: canMove }">
-    <div class="dialog-box flex-col" :class="{ full }" :style="boxStyle">
-      <slot name="header">
-        <div class="dialog-header flex-between" @mousedown="mousedown">
-          <span class="flex-ellipsis">{{ title }}</span>
-          <el-icon class="mr10 cursor" :style="{ color: '#fff' }" @click="dialogClose">
-            <CloseBold />
-          </el-icon>
+  <Teleport to="body">
+    <div v-if="showDialog" class="dialog flex-center" :class="{ move: canMove }">
+      <div class="dialog-box flex-col" :class="{ full }" :style="boxStyle">
+        <slot name="header">
+          <div class="dialog-header flex-between" @mousedown="mousedown">
+            <span class="flex-ellipsis">{{ title }}</span>
+            <el-icon class="mr10 cursor" :style="{ color: '#fff' }" @click="dialogClose">
+              <CloseBold />
+            </el-icon>
+          </div>
+        </slot>
+        <div class="dialog-main">
+          <slot name="main" :close="dialogClose">
+            默认弹窗
+          </slot>
         </div>
-      </slot>
-      <div class="dialog-main">
-        <slot name="main" :close="dialogClose">
-          默认弹窗
+        <slot name="footer" v-if="footer" :hiddenDialog="hiddenDialog">
+          <div class="dialog-footer flex-center">
+            <KLButton :width="80" :height="30" content="确定" @click="dialogSure" />
+            <KLButton :width="80" :height="30" content="取消" @click="dialogCancel" />
+          </div>
         </slot>
       </div>
-      <slot name="footer" v-if="footer" :hiddenDialog="hiddenDialog">
-        <div class="dialog-footer flex-center">
-          <KLButton :width="80" :height="30" content="确定" @click="dialogSure" />
-          <KLButton :width="80" :height="30" content="取消" @click="dialogCancel" />
-        </div>
-      </slot>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script>
@@ -100,7 +102,7 @@ export default {
       preventClose || this.hiddenDialog();
     },
     mousedown(e) {
-      this.downBoundingClientRect = this.$el.firstChild.getBoundingClientRect();
+      this.downBoundingClientRect = e.currentTarget.parentNode.getBoundingClientRect();
       this.downBoundingClientRect.downX = e.pageX;
       this.downBoundingClientRect.downY = e.pageY;
       document.addEventListener('mousemove', this.mousemove);
