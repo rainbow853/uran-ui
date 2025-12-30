@@ -15,6 +15,7 @@ import CameraImage from './views/CameraImage.vue'
 import ImageAnnotation from './views/ImageAnnotation.vue'
 import DetectOp from './views/DetectOp.vue'
 import DetectStat from './views/DetectStat.vue'
+import DetectProgress from './views/DetectProgress.vue'
 
 const Com: { [key: string]: Component } = {
   Icon,
@@ -30,6 +31,7 @@ const Com: { [key: string]: Component } = {
   ImageAnnotation,
   DetectOp,
   DetectStat,
+  DetectProgress,
 }
 
 const activeName = ref('ImageAnnotation')

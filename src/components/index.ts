@@ -30,6 +30,7 @@ import KLMotionController from "./KLMotionController.vue";
 import KLDetectOp from "./KLDetectOp.vue";
 import KLDetectStatChip from "./KLDetectStatChip.vue";
 import KLDetectStatMat from "./KLDetectStatMat.vue";
+import KlDetectProgress from "./KlDetectProgress.vue";
 
 function useComponent(app: App) {
   app.use(ElementPlus, { locale: zhCn }).use(TransformDom);
@@ -50,6 +51,7 @@ function useComponent(app: App) {
   app.component("KLDetectOp", KLDetectOp);
   app.component("KLDetectStatChip", KLDetectStatChip);
   app.component("KLDetectStatMat", KLDetectStatMat);
+  app.component("KlDetectProgress", KlDetectProgress);
 
   app.component("KLDialog", KLDialog);
   app.provide('klDialog', (Component: Element, props: any) => {

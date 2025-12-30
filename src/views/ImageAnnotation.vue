@@ -34,11 +34,15 @@ function contextmenu(e: MouseEvent) {
   e.preventDefault();
   ElMessage.success('右键');
 }
+
+function submitEvent() {
+  
+}
 </script>
 <template>
   <div class="shadow-block p20" style="height: 600px">
     <KLImageAnnotation ref="imageAnnotation" :imgSrc="imgSrc" :imgMaskSrc="imgMaskSrc" :width="width" :height="height"
-      :annotations="annotations" :rects="rects" :mousedownImageEvent="mousedown" :contextmenuImageEvent="contextmenu">
+      :annotations="annotations" :rects="rects" :mousedownImageEvent="mousedown" :contextmenuImageEvent="contextmenu" :submitEvent="submitEvent">
       <template #image>
         <svg :width="width" :height="height" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#ff0000" stroke-opacity="1" :stroke-width="4" fill="none">

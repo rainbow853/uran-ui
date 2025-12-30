@@ -41,6 +41,7 @@ export default defineConfig({
           { text: 'KLMotionController 运动控制器', link: '/KLMotionController' },
           { text: 'KLDetectStat 检测统计', link: '/KLDetectStat' },
           { text: 'KLDetectOp 开始/停止检测', link: '/KLDetectOp' },
+          { text: 'KlDetectProgress 检测进度', link: '/KlDetectProgress' },
         ]
       }
     ],
