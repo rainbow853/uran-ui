@@ -1,8 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import components from "./components"; //自定义组件
-import './assets/styles/iconfont/iconfont.js'
+import components from "./components";
 
 createApp(App)
-  .use(components)
+  .use(components, { loadIconfont: true })
   .mount('#app') 

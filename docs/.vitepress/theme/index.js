@@ -1,7 +1,6 @@
 // .vitepress/theme/index.js
 import DefaultTheme from 'vitepress/theme'
 import './custom.css'
-typeof window !== 'undefined' && import('../../../src/assets/styles/iconfont/iconfont.js')
 
 const loadUranUI = new Promise((resolve) => {
   typeof window === 'undefined' ?
@@ -13,6 +12,6 @@ const loadUranUI = new Promise((resolve) => {
 export default {
   extends: DefaultTheme,
   async enhanceApp({ app }) {
-    return loadUranUI.then(uranUI => app.use(uranUI))
+    return loadUranUI.then(uranUI => app.use(uranUI, { loadIconfont: true }))
   }
 }

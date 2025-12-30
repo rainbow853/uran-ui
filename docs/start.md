@@ -14,6 +14,8 @@ const app = createApp(App);
 app.use(pinia)
   .use(UranUI, {
     // 全局配置项
+    // 是否加载字体图标
+    loadIconfont: true,
     // imageData为相机对象grabImage的返回值（自定义，这里假定为imageData）
     grabImageSuccessCB(imageData: ImageData) {
       ElMessageBox.confirm(

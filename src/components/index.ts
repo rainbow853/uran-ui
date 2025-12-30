@@ -7,8 +7,6 @@ import '../assets/styles/common.margin-padding.scss'
 import '../assets/styles/common.size.scss'
 import '../assets/styles/common.scss'
 import '../assets/styles/kl-style.scss'
-// 此包不打包，各项目内部加载
-// import '../assets/styles/iconfont/iconfont.js'
 import TransformDom from 'vue3-transform-dom';
 import ElementPlus, { ElMessage, messageTypes } from "element-plus";
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
@@ -76,6 +74,9 @@ function useComponent(app: App) {
 export default {
   install: (app: App, config?: Partial<KLConfig>) => {
     config && setConfig(config);
+
+    // @ts-ignore
+    config && config.loadIconfont && import('../../docs/public/iconfont/iconfont.js')
 
     useComponent(app);
 

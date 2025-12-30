@@ -7,6 +7,8 @@ import Icon from '../src/views/Icon.vue'
 
 ## 效果
 <Icon />
+[查看所有图标](iconfont/demo_index.html){target=_blank}
+
 <<< ../src/views/Icon.vue#snippet
 
 ## Attributes

@@ -5,6 +5,8 @@ import type { App } from 'vue'
 
 // #region snippet
 export interface KLConfig {
+  /** 是否加载字体图标 */
+  loadIconfont?: boolean;
   /** 成功采集图像的回调函数 */
   grabImageSuccessCB: (image: any) => void;
   /** 其它全局组件注册 */
