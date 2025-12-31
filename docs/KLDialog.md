@@ -20,8 +20,9 @@ import Dialog1 from '../src/views/Dialog.vue'
 |footer |是否显示页脚 |`boolean` |true|
 |canMove |是否可以移动弹窗组件 |`boolean` |-|
 |close |关闭按钮回调函数，返回值为是否阻止关闭弹窗 |`() => boolean` |-|
-|sure |确认按钮回调函数，返回值为是否阻止关闭弹窗 |`() => boolean`` |-|
-|cancel |取消按钮回调函数，返回值为是否阻止关闭弹窗 |`() => boolean`` |-|
+|sure |确认按钮回调函数，返回值为是否阻止关闭弹窗 |`() => boolean` |-|
+|cancel |取消按钮回调函数，返回值为是否阻止关闭弹窗 |`() => boolean` |-|
+|sureFirst |footer确认按钮与取消按钮交换位置 |`boolean` |-|
 
 ## slot
 |插槽名|说明|数据|

@@ -1,27 +1,66 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
+import { useLoading } from '../composables/useLoading';
 const emit = defineEmits(['update:recipeId']);
 
 const props = defineProps<{
   recipeId: number;
   recipes: { id: number, name: string }[];
   started: boolean;
-  startCB: () => void;
-  stopCB: () => void;
+  preStartCB?: () => Promise<void>;
+  startCB: () => Promise<void>;
+  stopCB: () => Promise<void>;
 }>();
 
 const _recipeId = ref(1);
-watchEffect(() => {
-  _recipeId.value = props.recipeId;
-})
+watchEffect(() => _recipeId.value = props.recipeId)
 
 function change() {
   emit('update:recipeId');
 }
+
+const { loading, loadingText, setLoading } = useLoading();
+async function start() {
+  if (!props.recipeId || loading.value) return;
+  if (props.started) return stop();
+  try {
+    if (props.preStartCB) await props.preStartCB();
+  } catch {
+    return;
+  }
+
+  try {
+    setLoading(true, '开始检测中......');
+    await props.startCB();
+  } catch (e) {
+    ElMessage.error('开始检测失败：' + e);
+  }
+  setLoading(false);
+}
+
+async function stop() {
+  if (loading.value) return;
+  if (!props.started) return;
+
+  await ElMessageBox.confirm('正在检测中，是否停止检测？', '停止检测', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+  })
+
+  try {
+    setLoading(true, '停止检测中......');
+    await props.stopCB();
+  } catch (e) {
+    ElMessage.error('停止检测失败：' + e);
+  }
+  setLoading(false);
+
+}
 </script>
 
 <template>
-  <div class="operation-card shadow-block">
+  <div class="operation-card shadow-block" v-loading.fullscreen.lock="loading" :element-loading-text="loadingText">
     <div class="flex-center">
       <span class="state-title flex-center">当前状态</span>
       <span class="state-summary flex-center">
@@ -36,10 +75,10 @@ function change() {
       <el-option v-for="recipe in recipes" :key="recipe.id" :label="recipe.name" :value="recipe.id">
       </el-option>
     </el-select>
-    <div class="start-btn flex-center cursor" @click="startCB">
+    <div class="start-btn flex-center cursor" @click="start">
       <KLIcon :name="started ? 'stop' : 'start'" size="20px" class="icon" />{{ started ? '暂停' : '开始' }}
     </div>
-    <div class="stop-btn flex-center cursor" @click="stopCB">
+    <div class="stop-btn flex-center cursor" @click="stop">
       <KLIcon name="alarm" size="20px" class="icon" />急停
     </div>
   </div>

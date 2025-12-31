@@ -16,7 +16,7 @@
           </slot>
         </div>
         <slot name="footer" v-if="footer" :hiddenDialog="hiddenDialog">
-          <div class="dialog-footer flex-center">
+          <div class="dialog-footer flex-center split-line split-top" :class="{ reverse: sureFirst }">
             <KLButton :width="80" :height="30" content="确定" @click="dialogSure" />
             <KLButton :width="80" :height="30" content="取消" @click="dialogCancel" />
           </div>
@@ -43,6 +43,10 @@ export default {
     },
     sure: {
       type: Function
+    },
+    sureFirst: {
+      type: Boolean,
+      default: false,
     },
     cancel: {
       type: Function
@@ -190,6 +194,10 @@ export default {
 .dialog-footer {
   height: 70px;
   width: 100%;
+}
+
+.dialog-footer.reverse {
+  flex-direction: row-reverse;
 }
 
 .dialog-footer>div {
