@@ -12,7 +12,12 @@ export default defineConfig({
       fileName: `uran-ui`
     },
     rollupOptions: {
-      external: ['vue'],
+      external: [
+        'vue',
+        'element-plus',
+        'element-plus/es/locale/lang/zh-cn',
+        '@element-plus/icons-vue',
+      ],
       output: {
         exports: 'named',
         globals: {
