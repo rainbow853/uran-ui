@@ -5,10 +5,15 @@ const submitRecord = ref('Submit event');
 function submit(value: string) {
   submitRecord.value = '输入框当前值 : ' + value;
 }
+function inputValidator(text: string) {
+  if (!text) return '不能为空';
+  const reg = new RegExp('[\\\\/:*?"<>|]');
+  return reg.test(text) ? '不能包括 \\/:*?"<>| 等特殊字符！' : '';
+}
 </script>
 <template>
   <div class="mb10">
-    <KLInput v-model="textValue" @submit="submit" />
+    <KLInput v-model="textValue" prefixIcon="code" suffixText="code" :width="200" :inputValidator="inputValidator" @submit="submit" />
     <div>{{ submitRecord }}</div>
   </div>
   <div class="w-full">

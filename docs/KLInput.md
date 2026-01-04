@@ -18,6 +18,16 @@ import Input from '../src/views/Input.vue'
 |disabled |禁用 |`boolean` |false|
 |shadow |阴影边框 |`boolean` |false|
 |password |是否是密码输入框 |`boolean` |false|
+|prefixIcon |前缀图标 |`string` |-|
+|suffixText |后缀文本 |`string` |-|
+|placeholder |输入框占位文本 |`string` |-|
+|inputValidator |输入框的校验函数；返回值会用于向用户展示错误消息 |`(text: string) => string` |-|
+
+## slot
+|插槽名|说明|
+|---|---|
+|prefix |自定义前缀图标 |
+|suffix |自定义后缀文本 |
 
 ## 事件
 > 用户按下Enter键会触发输入框blur事件

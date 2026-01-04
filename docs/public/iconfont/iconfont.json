@@ -6,6 +6,34 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2064032",
+      "name": "42-顶级光源",
+      "font_class": "light-source",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "4320345",
+      "name": "配比数据库",
+      "font_class": "database",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "20776163",
+      "name": "返修",
+      "font_class": "fanxiu",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "29381011",
+      "name": "code",
+      "font_class": "code",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
       "icon_id": "36793281",
       "name": "PLC管理",
       "font_class": "plc-1",
