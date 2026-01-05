@@ -97,10 +97,17 @@ defineExpose({
   zoomByCenter,
   restoreImage,
 });
+
+/**
+ * 添加键盘事件，上下左右可以选择缺陷，ESC重置
+ */
+function keydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' || e.key === ' ') restoreImage()
+}
 </script>
 
 <template>
-  <div ref="cameraContent" class="camera-content-warpper">
+  <div ref="cameraContent" class="camera-content-warpper" tabindex="101" @keydown="keydown">
     <canvas ref="canvasEl"></canvas>
     <transform-dom ref="klTransform" @transform="transform" :width="width" :height="height" limitInWindow
       class="camera-content" :class="{ 'grid-line': grid.show }"

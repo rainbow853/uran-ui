@@ -31,7 +31,7 @@ export interface mousedownParam {
 function getRelativePos(eleInfo: MouseDownEleInfo, event: MouseEvent) {
   const x = (event.clientX - eleInfo.left) / eleInfo.scaleX;
   const y = (event.clientY - eleInfo.top) / eleInfo.scaleY;
-  return { x, y };
+  return { x: ~~x, y: ~~y };
 }
 
 export function useMousedownEvent(param: mousedownParam): movedownResult {
