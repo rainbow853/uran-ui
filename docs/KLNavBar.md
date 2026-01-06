@@ -15,6 +15,7 @@ import NavBar from '../src/views/NavBar.vue'
 |navs |列表 |`nav[]` |-|
 |v-model:current |当前值 |`string` |-|
 |fullWidth |导航条是否铺满容器 |`boolean` |-|
+|beforeChange |切换之前的回调函数，返回值决定是否继续切换 |`(item: nav) => Promise<boolean>` |-|
 
 ```typescript
 interface nav {

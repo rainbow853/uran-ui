@@ -1,20 +1,30 @@
 <script setup lang="ts">
-defineEmits(['update:current']);
+const emit = defineEmits(['update:current']);
+
 interface nav {
   label: string;
   value: string;
 }
-defineProps<{
+const props = defineProps<{
   navs: nav[],
   current: string,
   fullWidth?: boolean,
+  beforeChange?: (item: nav) => Promise<boolean>,
 }>()
+
+function click(item: nav) {
+  if (item.value === props.current) return;
+  if (!props.beforeChange) return emit('update:current', item.value);
+  props.beforeChange(item).then((flag: boolean) => {
+    flag && emit('update:current', item.value);
+  })
+}
 
 </script>
 <template>
   <nav class="navigation-bar flex" :class="{ 'item-full': fullWidth }">
     <div v-for="item in navs" :key="item.value" class="nav-item flex-center fw-b"
-      :class="{ 'hl-color': current == item.value }" @click="$emit('update:current', item.value)">
+      :class="{ 'hl-color': current == item.value }" @click="click(item)">
       {{ item.label }}
     </div>
   </nav>
