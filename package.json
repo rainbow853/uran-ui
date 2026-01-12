@@ -1,5 +1,5 @@
 {
-  "name": "@koala123/ui",
+  "name": "@koala123/uran-ui",
   "private": false,
   "author": "Uran Team",
   "version": "1.0.0",
@@ -23,6 +23,7 @@
     "access": "public"
   },
   "scripts": {
+    "prepublishOnly": "npm run build",
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
     "preview": "vite preview",

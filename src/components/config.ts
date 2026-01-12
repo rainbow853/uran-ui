@@ -1,9 +1,9 @@
 
 
 
+// #region snippet
 import type { App } from 'vue'
 
-// #region snippet
 export interface KLConfig {
   /** 是否加载字体图标 */
   loadIconfont?: boolean;

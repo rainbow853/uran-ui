@@ -2,17 +2,18 @@
 
 ## 安装
 ```
-npm i @koala123/ui
+npm i @koala123/uran-ui
 ```
 
 ## 使用
 ```typescript
-import UranUI from '@koala123/ui'
+import uranUI from '@koala123/uran-ui';
+import "@koala123/uran-ui/css";
 
 import { createApp } from "vue";
 const app = createApp(App);
 app.use(pinia)
-  .use(UranUI, {
+  .use(uranUI, {
     // 全局配置项
     // 是否加载字体图标
     loadIconfont: true,
