@@ -105,7 +105,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="camera-main flex-col">
+  <div class="camera-main flex-col" :class="{ disabled: !camera }">
     <Header :camera="camera" :subscribe="subscribe" :imageScale="imageScale" v-model:grid="grid"
       v-model:crosshair="crosshair" :crosshairCenter="crosshairCenter" :zoomByCenter="zoomByCenter"
       :restoreImage="restoreImage" :helpVideo="helpVideo" :grabImageSuccessCB="grabImageSuccessCB" />

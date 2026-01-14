@@ -27,7 +27,7 @@ const RGB = computed(() => {
     <div class="mr20">位置：{{ xy }}</div>
     <div class="mr20">RGB：{{ RGB }}</div>
     <div>图片计数：{{ count }}</div>
-    <div class="poatr00">{{ camera?.desc }}</div>
+    <div class="poatr00">{{ camera?.desc || '无相机' }}</div>
   </div>
 </template>
 
