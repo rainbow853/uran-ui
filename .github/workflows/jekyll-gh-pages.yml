@@ -1,0 +1,53 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:  # 允许手动触发
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # 获取所有历史用于更好的git日志
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci  # 使用 ci 而不是 install 以获得更可靠的构建
+
+      - name: Build
+        run: |
+          npm run docs:build
+        env:
+          NODE_ENV: production
+          
+      - name: Show Build Output
+        run: |
+          echo "检查构建输出目录..."
+          ls -la docs/.vitepress/dist/
+          echo "文件数量:"
+          find docs/.vitepress/dist/ -type f | wc -l
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/.vitepress/dist
+          clean: true  # 部署前清理目标分支
+          single-commit: true  # 保留提交历史
+          git-config-name: GitHub Actions
+          git-config-email: actions@github.com
