@@ -1,0 +1,1 @@
+async function r(t){return new Promise(e=>{setTimeout(()=>{e(t)},t)})}function s(t){return t.toString().replace(new RegExp("(?<=[\\d])(?=(\\d{3})+(?!\\d))","g"),",")}function o(t,e,n){return!t||!e?0:parseFloat((t/e*100).toFixed(n))}export{o as f,r as s,s as t};
