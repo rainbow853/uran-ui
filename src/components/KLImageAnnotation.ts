@@ -52,6 +52,8 @@ export interface ImageAnnotationProps {
   annotations: annotation[];
   /** 标注框列表 */
   rects: rect[];
+  /** 图像标注框列表，默认使用rects */
+  imgRects?: rect[];
   /** 鼠标事件 */
   mousedownImageEvent?: (e: MouseEvent) => void;
   /** 鼠标右键事件 */

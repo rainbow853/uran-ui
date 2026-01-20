@@ -14,6 +14,8 @@ const showMask = ref(false);
 const curRectChange = ref<RectChangeEvent>({ from: null, rect: null, silent: false });
 // 当前被选中的rect的索引
 const curSelectIndex = computed(() => curRectChange.value.rect ? props.rects.indexOf(curRectChange.value.rect) : -1);
+// 图像标注框列表
+const imgRects = computed(() => props.imgRects || props.rects);
 watch(curRectChange, (_curRectChange) => {
   if (_curRectChange.silent || _curRectChange.from === RectChangeEventFrom.IMAGE || !_curRectChange.rect) return
   scrollToRect(_curRectChange.rect.position)
@@ -62,7 +64,7 @@ function getPosition(e: MouseEvent): coor | null {
 function selectRect(e: MouseEvent) {
   const position = getPosition(e);
   if (!position) return;
-  const rects = props.rects.filter(rect => coorInRect(position, rect.position));
+  const rects = imgRects.value.filter(rect => coorInRect(position, rect.position));
   if (!rects.length) return;
 
   curRectChange.value = {
@@ -120,8 +122,8 @@ defineExpose({
                 width: rect.position[2] + 'px',
                 height: rect.position[3] + 'px',
                 'border-color': rect.color || '',
-                'border-style': index === curSelectIndex ? 'dashed' : 'solid'
-              }" v-for="(rect, index) in rects" :key="rect.id">
+                'border-style': rect === curRectChange.rect ? 'dashed' : 'solid'
+              }" v-for="rect in imgRects" :key="rect.id">
                 <div class="bottom-100">{{ rect.measureDesc }}</div>
               </div>
             </div>
@@ -143,8 +145,8 @@ defineExpose({
         <div class="rects-top split-line flex-between">
           <div class="image-select flex-between">
             <span class="flex-full">图片选择</span>
-            <el-switch active-text="查看mask" inactive-text="查看mask" inline-prompt v-model="showMask"
-              active-color="#477AE0" inactive-color="#999999" class="mr20" />
+            <el-switch active-text="查看mask" inactive-text="查看mask" inline-prompt v-model="showMask" active-color="#477AE0"
+              inactive-color="#999999" class="mr20" />
             <el-switch active-text="只看原图" inactive-text="只看原图" inline-prompt v-model="onlyViewSourceImg"
               active-color="#477AE0" inactive-color="#999999" />
           </div>
