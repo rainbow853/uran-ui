@@ -14,8 +14,8 @@ import Button from '../src/views/Button.vue'
 |---|---|---|:---:|
 |content |按钮内容 |`string` |-|
 |name |图标class名：`kl-${name}` |`string` |-|
-|width |宽 |`string|number` |-|
-|height |高 |`string|number` |-|
+|width |宽 |`string\|number` |-|
+|height |高 |`string\|number` |-|
 |warn |warn类型按钮 |`boolean` |false|
 |large |large类型按钮 |`boolean` |false|
 |highlight |高亮 |`boolean` |false|

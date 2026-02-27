@@ -79,7 +79,7 @@ async function stop() {
       <KLIcon :name="started ? 'stop' : 'start'" size="20px" class="icon" />{{ started ? '暂停' : '开始' }}
     </div>
     <div class="stop-btn flex-center cursor" @click="stop">
-      <KLIcon name="alarm" size="20px" class="icon" />急停
+      <KLIcon name="alarm" size="20px" class="icon" />停止
     </div>
   </div>
 </template>
