@@ -17,7 +17,7 @@ const _recipeId = ref(1);
 watchEffect(() => _recipeId.value = props.recipeId)
 
 function change() {
-  emit('update:recipeId');
+  emit('update:recipeId', _recipeId.value);
 }
 
 const { loading, loadingText, setLoading } = useLoading();
